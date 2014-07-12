@@ -202,6 +202,10 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             this.Invalidate();
         }
 
+        /// <summary>
+        /// Called when the text on the control changes.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnTextChanged(EventArgs e)
         {
             // Measure the size of the text.
@@ -213,6 +217,38 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             textPoint.Y = ((Height - size.Height) / 2);
 
             base.OnTextChanged(e);
+        }
+
+        /// <summary>
+        /// Called when the control gains focus.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnGotFocus(EventArgs e)
+        {
+            SetActive(true);
+            base.OnGotFocus(e);
+        }
+
+        /// <summary>
+        /// Called when the focus on the control is lost.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLostFocus(EventArgs e)
+        {
+            SetActive(false);
+            base.OnLostFocus(e);
+        }
+
+        /// <summary>
+        /// Called when a key has been pressed.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            // Raise a click event when the enter key has been pressed.
+            if (Focused && e.KeyChar == (char)Keys.Enter)
+                base.OnClick(e);
+            base.OnKeyPress(e);
         }
 
         /// <summary>

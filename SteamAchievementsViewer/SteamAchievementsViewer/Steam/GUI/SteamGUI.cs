@@ -39,6 +39,8 @@ namespace SteamAchievementsViewer.Steam.GUI
         public SteamGUI() :
             base()
         {
+            this.DoubleBuffered = true;
+
             // Display the border style, we will use our own.
             this.FormBorderStyle = FormBorderStyle.None;
 

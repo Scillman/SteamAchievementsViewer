@@ -57,7 +57,7 @@ namespace SteamAchievementsViewer
             this.label1.Location = new System.Drawing.Point(12, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(276, 277);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 0;
             this.label1.Text = resources.GetString("label1.Text");
             // 
             // TermsOfUse
