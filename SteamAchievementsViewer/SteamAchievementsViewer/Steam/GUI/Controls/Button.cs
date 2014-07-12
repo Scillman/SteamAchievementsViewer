@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -17,30 +18,54 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
          * The default size of the control.
          */
         private const int CONTROL_WIDTH = 100;
-        private const int CONTROL_HEIGHT = 26;
+        private const int CONTROL_HEIGHT = 24;
 
         /**
-         * The colors used for the background of the button.
+         * The constants used for drawing the button.
          *   Active:    When the control has focus.
          *   Inactive:  When the control does not have focus.
          */
-        private readonly Color GRADIENT_COLOR_ACTIVE_TOP = Color.FromArgb(0x66, 0x63, 0x60);
-        private readonly Color GRADIENT_COLOR_ACTIVE_BOTTOM = Color.FromArgb(0x4B, 0x49, 0x47);
-        private readonly Color GRADIENT_COLOR_INACTIVE_TOP = Color.FromArgb(0x5C, 0x59, 0x56);
-        private readonly Color GRADIENT_COLOR_INACTIVE_BOTTOM = Color.FromArgb(0x4A, 0x48, 0x46);
+        #region Drawing Constants
+        // The colors that are used for the background gradient.
+        private static readonly Color GRADIENT_COLOR_ACTIVE_TOP = Color.FromArgb(0x66, 0x63, 0x60);
+        private static readonly Color GRADIENT_COLOR_ACTIVE_BOTTOM = Color.FromArgb(0x4B, 0x49, 0x47);
+        private static readonly Color GRADIENT_COLOR_INACTIVE_TOP = Color.FromArgb(0x5C, 0x59, 0x56);
+        private static readonly Color GRADIENT_COLOR_INACTIVE_BOTTOM = Color.FromArgb(0x4A, 0x48, 0x46);
 
         // The mode that is used to draw the background radient.
-        private readonly LinearGradientMode GRADIENT_MODE = LinearGradientMode.Vertical;
+        private static readonly LinearGradientMode GRADIENT_MODE = LinearGradientMode.Vertical;
+
+        // The colors used for drawing the edge.
+        private static readonly Color EDGE_COLOR = Color.White;
+        private static readonly Color EDGE_COLOR_ACTIVE = Color.FromArgb(0x40, EDGE_COLOR);
+        private static readonly Color EDGE_COLOR_INACTIVE = Color.FromArgb(0x20, EDGE_COLOR);
+
+        // The font used it to draw the text.
+        private static readonly string TEXT_FONT_FAMILY = "Arial";
+        private static readonly Font TEXT_FONT = new Font(TEXT_FONT_FAMILY, 9, FontStyle.Regular);
+        private static readonly Color TEXT_COLOR = Color.White;
+        private static readonly Brush TEXT_BRUSH = new SolidBrush(TEXT_COLOR);
+        #endregion
 
         // The brushes used for drawing the backgrounds.
         private LinearGradientBrush brushActive;
         private LinearGradientBrush brushInactive;
+
+        // The brushes/pens used for drawing the edge.
+        private SolidBrush brushEdgeActive;
+        private SolidBrush brushEdgeInactive;
+        private Pen penActive;
+        private Pen penInactive;
 
         // Indicates whether to draw with the 'active' or 'inactive' brush.
         private bool active;
 
         // The bounds used for drawing the background.
         private Rectangle bounds;
+        private Rectangle edge;
+
+        // The point at which the text is drawn.
+        private PointF textPoint;
 
         public Button()
         {
@@ -50,6 +75,13 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
 
             // Set the focus.
             this.active = false;
+            this.textPoint = PointF.Empty;
+
+            // Load the pens for drawing the edge.
+            brushEdgeActive = new SolidBrush(EDGE_COLOR_ACTIVE);
+            brushEdgeInactive = new SolidBrush(EDGE_COLOR_INACTIVE);
+            penActive = new Pen(brushEdgeActive);
+            penInactive = new Pen(brushEdgeInactive);
 
             // Prepare for drawing the control.
             SetBounds();
@@ -63,18 +95,26 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         {
             if (disposing)
             {
+                // Background
                 Dispose(ref brushActive);
                 Dispose(ref brushInactive);
+
+                // Edge
+                Dispose(ref penActive);
+                Dispose(ref penInactive);
+                Dispose(ref brushEdgeActive);
+                Dispose(ref brushEdgeInactive);  
             }
 
             base.Dispose(disposing);
         }
 
         /// <summary>
-        /// Disposes of a single brush.
+        /// Disposes of a object.
         /// </summary>
-        /// <param name="obj"></param>
-        private void Dispose(ref LinearGradientBrush obj)
+        /// <param name="obj">The object that has to be disposed.</param>
+        /// <typeparam name="T">The object has to be an class with the interface IDisposable.</typeparam>
+        private void Dispose<T>(ref T obj) where T : class, IDisposable
         {
             if (obj != null)
             {
@@ -106,6 +146,12 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             var width = Width > 0 ? Width : CONTROL_WIDTH;
             var height = Height > 0 ? Height : CONTROL_HEIGHT;
             bounds = new Rectangle(0, 0, width, height);
+
+            // Change it to match the control.
+            const int OFFSET = 1; // The offset needed by the edge.
+            var widthB = Width > OFFSET ? Width - OFFSET : CONTROL_WIDTH - OFFSET;
+            var heightB = Height > OFFSET ? Height - OFFSET : CONTROL_HEIGHT - OFFSET;
+            edge = new Rectangle(0, 0, widthB, heightB);
 
             // Reload the brushes to match the new bounds.
             ReloadBrushes();
@@ -151,20 +197,40 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             this.Invalidate();
         }
 
+        protected override void OnTextChanged(EventArgs e)
+        {
+            // Measure the size of the text.
+            var text = Text.ToUpper();
+            var size = TextRenderer.MeasureText(text, TEXT_FONT);
+
+            // Set the new point of the text.
+            textPoint.X = ((Width - size.Width) / 2);
+            textPoint.Y = ((Height - size.Height) / 2);
+
+            base.OnTextChanged(e);
+        }
+
         /// <summary>
         /// Called when the device has to be drawn.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             // The graphics device that has to be drawn to.
             var g = e.Graphics;
 
             // Draw the button's background radiant.
             var brush = active ? brushActive : brushInactive;
-            g.FillRectangle(brush, new Rectangle(0, 0, this.Width, this.Height));
+            g.FillRectangle(brush, bounds);
 
-            base.OnPaint(e);
+            // Draw the edge of the control.
+            var pen = active ? penActive : penInactive;
+            g.DrawRectangle(pen, edge);
+
+            // Draw the text on the control.
+            g.DrawString(Text.ToUpper(), TEXT_FONT, TEXT_BRUSH, textPoint);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace SteamAchievementsViewer
         public Form1()
         {
             InitializeComponent();
+            this.BackColor = Color.Black;
         }
     }
 }
