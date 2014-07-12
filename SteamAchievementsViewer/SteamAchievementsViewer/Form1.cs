@@ -17,5 +17,11 @@ namespace SteamAchievementsViewer
             InitializeComponent();
             this.BackColor = Color.Black;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var terms = new TermsOfUse();
+            terms.ShowDialog();
+        }
     }
 }

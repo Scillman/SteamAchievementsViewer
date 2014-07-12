@@ -44,7 +44,6 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         private static readonly string TEXT_FONT_FAMILY = "Arial";
         private static readonly Font TEXT_FONT = new Font(TEXT_FONT_FAMILY, 9, FontStyle.Regular);
         private static readonly Color TEXT_COLOR = Color.White;
-        private static readonly Brush TEXT_BRUSH = new SolidBrush(TEXT_COLOR);
         #endregion
 
         // The brushes used for drawing the backgrounds.
@@ -56,6 +55,9 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         private SolidBrush brushEdgeInactive;
         private Pen penActive;
         private Pen penInactive;
+
+        // The brush used to draw the text on a button.
+        private Brush textBrush = new SolidBrush(TEXT_COLOR);
 
         // Indicates whether to draw with the 'active' or 'inactive' brush.
         private bool active;
@@ -104,6 +106,9 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
                 Dispose(ref penInactive);
                 Dispose(ref brushEdgeActive);
                 Dispose(ref brushEdgeInactive);  
+
+                // Text
+                Dispose(ref textBrush);
             }
 
             base.Dispose(disposing);
@@ -230,7 +235,7 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             g.DrawRectangle(pen, edge);
 
             // Draw the text on the control.
-            g.DrawString(Text.ToUpper(), TEXT_FONT, TEXT_BRUSH, textPoint);
+            g.DrawString(Text.ToUpper(), TEXT_FONT, textBrush, textPoint);
         }
     }
 }
