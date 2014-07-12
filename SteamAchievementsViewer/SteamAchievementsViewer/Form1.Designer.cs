@@ -30,6 +30,7 @@
         {
             this.button2 = new SteamAchievementsViewer.Steam.GUI.Controls.Button();
             this.button1 = new SteamAchievementsViewer.Steam.GUI.Controls.Button();
+            this.checkbox1 = new SteamAchievementsViewer.Steam.GUI.Controls.Checkbox();
             this.SuspendLayout();
             // 
             // button2
@@ -46,16 +47,26 @@
             this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(205, 247);
+            this.button1.Size = new System.Drawing.Size(205, 232);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // checkbox1
+            // 
+            this.checkbox1.BackColor = System.Drawing.Color.Transparent;
+            this.checkbox1.Location = new System.Drawing.Point(12, 250);
+            this.checkbox1.Name = "checkbox1";
+            this.checkbox1.Size = new System.Drawing.Size(311, 23);
+            this.checkbox1.TabIndex = 2;
+            this.checkbox1.Text = "checkbox1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 285);
+            this.Controls.Add(this.checkbox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
@@ -68,6 +79,7 @@
 
         private Steam.GUI.Controls.Button button1;
         private Steam.GUI.Controls.Button button2;
+        private Steam.GUI.Controls.Checkbox checkbox1;
     }
 }
 

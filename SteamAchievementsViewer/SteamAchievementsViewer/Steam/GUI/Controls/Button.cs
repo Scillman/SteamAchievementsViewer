@@ -40,9 +40,7 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         private static readonly Color EDGE_COLOR_ACTIVE = Color.FromArgb(0x40, EDGE_COLOR);
         private static readonly Color EDGE_COLOR_INACTIVE = Color.FromArgb(0x20, EDGE_COLOR);
 
-        // The font used it to draw the text.
-        private static readonly string TEXT_FONT_FAMILY = "Arial";
-        private static readonly Font TEXT_FONT = new Font(TEXT_FONT_FAMILY, 9, FontStyle.Regular);
+        // The color that is used to draw the text with.
         private static readonly Color TEXT_COLOR = Color.White;
         #endregion
 
@@ -210,7 +208,7 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         {
             // Measure the size of the text.
             var text = Text.ToUpper();
-            var size = TextRenderer.MeasureText(text, TEXT_FONT);
+            var size = TextRenderer.MeasureText(text, Font);
 
             // Set the new point of the text.
             textPoint.X = ((Width - size.Width) / 2);
@@ -240,18 +238,6 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         }
 
         /// <summary>
-        /// Called when a key has been pressed.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnKeyPress(KeyPressEventArgs e)
-        {
-            // Raise a click event when the enter key has been pressed.
-            if (Focused && e.KeyChar == (char)Keys.Enter)
-                base.OnClick(e);
-            base.OnKeyPress(e);
-        }
-
-        /// <summary>
         /// Called when the device has to be drawn.
         /// </summary>
         /// <param name="e"></param>
@@ -271,7 +257,7 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             g.DrawRectangle(pen, edge);
 
             // Draw the text on the control.
-            g.DrawString(Text.ToUpper(), TEXT_FONT, textBrush, textPoint);
+            g.DrawString(Text.ToUpper(), Font, textBrush, textPoint);
         }
     }
 }

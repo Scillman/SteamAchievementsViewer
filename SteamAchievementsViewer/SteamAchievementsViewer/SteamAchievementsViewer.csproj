@@ -67,6 +67,9 @@
     <Compile Include="Steam\GUI\Controls\Button.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Steam\GUI\Controls\Checkbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Steam\GUI\Controls\Control.cs">
       <SubType>Component</SubType>
     </Compile>
