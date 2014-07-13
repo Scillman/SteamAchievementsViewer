@@ -1,7 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
 namespace SteamAchievementsViewer
 {
     /// <summary>
@@ -9,6 +10,18 @@ namespace SteamAchievementsViewer
     /// </summary>
     public static class Utility
     {
+        public static void SetEnabled(this Control control, bool enable)
+        {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(new Action<bool>(control.SetEnabled), enable);
+            }
+            else
+            {
+                control.Enabled = enable;
+            }
+        }
+
         /**
          * Author: Dylan Vester
          * Source: http://stackoverflow.com/questions/628261/how-to-draw-rounded-rectangle-with-variable-width-border-inside-of-specific-boun

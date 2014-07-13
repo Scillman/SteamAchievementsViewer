@@ -23,6 +23,7 @@
             // buttonLogin
             // 
             this.buttonLogin.BackColor = System.Drawing.Color.Transparent;
+            this.buttonLogin.Font = new System.Drawing.Font("Arial", 9F);
             this.buttonLogin.Location = new System.Drawing.Point(188, 116);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(100, 24);
@@ -74,6 +75,7 @@
             // buttonExit
             // 
             this.buttonExit.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExit.Font = new System.Drawing.Font("Arial", 9F);
             this.buttonExit.Location = new System.Drawing.Point(82, 116);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(100, 24);
@@ -83,6 +85,7 @@
             // 
             // steamGuardCode
             // 
+            this.steamGuardCode.Enabled = false;
             this.steamGuardCode.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.steamGuardCode.Location = new System.Drawing.Point(118, 88);
             this.steamGuardCode.Name = "steamGuardCode";

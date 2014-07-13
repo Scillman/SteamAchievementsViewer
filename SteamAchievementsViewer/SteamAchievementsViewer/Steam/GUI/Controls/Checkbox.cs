@@ -19,11 +19,17 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         private static readonly Color STATE_CHECKED = Color.FromArgb(0x82, 0xB3, 0x59);
         private static readonly Color STATE_UNCHECKED = Color.FromArgb(0x6F, 0xB5, 0xD9);
         //private static readonly Color STATE_OFFLINE = Color.FromArgb(0xA6, 0xA4, 0xA1);
+
+        private const float PEN_THICKNESS = 2.5f;
         #endregion
 
         // The brushes that are used to draw the text.
         private SolidBrush brushChecked;
         private SolidBrush brushUnchecked;
+
+        // The pens used to draw the check.
+        private Pen penChecked;
+        private Pen penUnchecked;
 
         public Checkbox() :
             base()
@@ -33,6 +39,10 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
             // The brushes used to draw the text.
             brushChecked = new SolidBrush(STATE_CHECKED);
             brushUnchecked = new SolidBrush(STATE_UNCHECKED);
+
+            // The pens used to draw the check.
+            penChecked = new Pen(brushChecked, PEN_THICKNESS);
+            penUnchecked = new Pen(brushUnchecked, PEN_THICKNESS);
         }
 
         /// <summary>
@@ -43,6 +53,9 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
         {
             if (disposing)
             {
+                Dispose(ref penChecked);
+                Dispose(ref penUnchecked);
+
                 Dispose(ref brushChecked);
                 Dispose(ref brushUnchecked);
             }
@@ -89,7 +102,11 @@ namespace SteamAchievementsViewer.Steam.GUI.Controls
 
             // Draw the text
             var brush = Checked ? brushChecked : brushUnchecked;
-            g.DrawString(Text, Font, brush, PointF.Empty);
+            var pen = Checked ? penChecked : penUnchecked;
+
+            var height = this.Height / 2;
+            g.DrawEllipse(pen, new Rectangle(0, 0, height, height));
+            g.DrawString(Text, Font, brush, new PointF(0, height + 6));
         }
     }
 }
