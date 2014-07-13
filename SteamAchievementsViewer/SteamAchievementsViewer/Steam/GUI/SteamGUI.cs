@@ -110,9 +110,16 @@ namespace SteamAchievementsViewer.Steam.GUI
         /// <param name="form">The form that has to be opened after this form.</param>
         protected void Successor(Form form)
         {
-            form.FormClosed += Form_FormClosed;
-            Hide();
-            form.Show();
+            if (InvokeRequired)
+            {
+                Invoke(new Action<Form>(Successor), form);
+            }
+            else
+            {
+                form.FormClosed += Form_FormClosed;
+                Hide();
+                form.Show();
+            }
         }
 
         /// <summary>

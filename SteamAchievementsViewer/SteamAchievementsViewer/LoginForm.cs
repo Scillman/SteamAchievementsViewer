@@ -5,10 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AccountInfoCallback = SteamKit2.SteamUser.AccountInfoCallback;
 using ConnectedCallback = SteamKit2.SteamClient.ConnectedCallback;
 using DisconnectedCallback = SteamKit2.SteamClient.DisconnectedCallback;
+using FriendsListCallback = SteamKit2.SteamFriends.FriendsListCallback;
 using LoggedOffCallback = SteamKit2.SteamUser.LoggedOffCallback;
 using LoggedOnCallback = SteamKit2.SteamUser.LoggedOnCallback;
+using PersonaStateCallback = SteamKit2.SteamFriends.PersonaStateCallback;
 using UpdateMachineAuthCallback = SteamKit2.SteamUser.UpdateMachineAuthCallback;
 
 namespace SteamAchievementsViewer
@@ -39,6 +42,13 @@ namespace SteamAchievementsViewer
 
             // Authentication
             new Callback<UpdateMachineAuthCallback>(OnMachineAuth, manager);
+
+            // Friendslist
+            new Callback<AccountInfoCallback>(OnAccountInfo, manager);
+            new Callback<FriendsListCallback>(OnFriendsList, manager);
+
+            // Friends information
+            new Callback<PersonaStateCallback>(OnPersonaState, manager);
         }
 
         private void ButtonLogin_Click(object sender, EventArgs e)
@@ -132,6 +142,7 @@ namespace SteamAchievementsViewer
             else
             {
                 Debug.WriteLine("Successfully logged on!");
+                //Successor(new Form1());
             }
         }
 
@@ -165,6 +176,36 @@ namespace SteamAchievementsViewer
             });
 
             Debug.WriteLine("Done writing sentryfile!");
+        }
+
+        private void OnAccountInfo(AccountInfoCallback obj)
+        {
+            // Go online so we can retrieve the friendslist.
+            Manager.SteamFriends.SetPersonaState(EPersonaState.Online);
+        }
+
+        private void OnFriendsList(FriendsListCallback obj)
+        {
+            var friends = Manager.SteamFriends;
+            var count = friends.GetFriendCount();
+
+            Debug.WriteLine("I have {0} friends!", count);
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    var steamId = friends.GetFriendByIndex(i);
+            //    //Debug.WriteLine("(1) ID: {0} \tFriend: {1}", steamId.AccountID, friends.GetFriendPersonaName(steamId));
+            //    friends.RequestFriendInfo(steamId, EClientPersonaStateFlag.PlayerName);
+            //}
+        }
+
+        private void OnPersonaState(PersonaStateCallback callback)
+        {
+            Debug.WriteLine("(2) ID: {0} \tFriend: {1}", callback.FriendID, callback.Name);
+
+            // Log-off and disconnect!
+            Manager.SteamUser.LogOff();
+            Manager.SteamClient.Disconnect();
         }
     }
 }
