@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAchievementsViewer", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamKit2X", "SteamKit2X\SteamKit2X.csproj", "{2CEEEC2B-9F7B-4B73-A28B-334A74591713}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{00CB290C-173A-4CEF-B807-091841F5DF87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2CEEEC2B-9F7B-4B73-A28B-334A74591713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CEEEC2B-9F7B-4B73-A28B-334A74591713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CEEEC2B-9F7B-4B73-A28B-334A74591713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00CB290C-173A-4CEF-B807-091841F5DF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00CB290C-173A-4CEF-B807-091841F5DF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00CB290C-173A-4CEF-B807-091841F5DF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00CB290C-173A-4CEF-B807-091841F5DF87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

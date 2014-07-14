@@ -1,5 +1,6 @@
 ﻿
 using SteamKit2;
+using System;
 using System.Collections.Generic;
 namespace SteamKit2X.Achievements
 {
@@ -51,7 +52,7 @@ namespace SteamKit2X.Achievements
         /// Load the achievements of the specified application.
         /// </summary>
         /// <param name="appId">The id of the application.</param>
-        internal static List<GameAchievement> Load(uint appId)
+        public static List<GameAchievement> Load(uint appId)
         {
             // Create a list that is able to hold the achievements.
             var list = new List<GameAchievement>();
@@ -63,7 +64,7 @@ namespace SteamKit2X.Achievements
                 KeyValue items = steamUserStats.GetSchemaForGame2(appid : appId, l : "english");
 
                 // Loop through all the achievements.
-                foreach (var item in items["availableGameStats"]["achievements"]["achievement"].Children)
+                foreach (var item in items["availableGameStats"]["achievements"].Children)
                 {
                     // Construct the SteamKit2X.Achievements.GameAchievement object from the returned values.
                     var achievement = new GameAchievement(
