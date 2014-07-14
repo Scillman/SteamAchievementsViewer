@@ -5,7 +5,7 @@ namespace SteamKit2X.Achievements
     /// <summary>
     /// The general interface for achievements.
     /// </summary>
-    public abstract class Achievement : IComparable
+    public abstract class Achievement : IComparable<Achievement>
     {
         /// <summary>
         /// Get the API name of the achievement.
@@ -38,16 +38,11 @@ namespace SteamKit2X.Achievements
         /// <summary>
         /// Allows comparison between <see cref="SteamKit2X.Achievements.Achievement"/> objects. 
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="achievement">The achievement that has to be compared to this achievement.</param>
         /// <returns></returns>
-        public int CompareTo(object obj)
+        public int CompareTo(Achievement achievement)
         {
-            // Ensure the object is not null.
-            if (obj == null)
-                return 1;
-
-            // Turn the object into an achievement and ensure it is an SteamKit2X.Achievements.Achievement object.
-            var achievement = obj as Achievement;
+            // Ensure it is an SteamKit2X.Achievements.Achievement object.
             if (achievement == null)
                 throw new ArgumentException("The object is not an SteamKit2X.Achievements.Achievement object.");
 

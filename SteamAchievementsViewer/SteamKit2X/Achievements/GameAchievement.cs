@@ -1,4 +1,6 @@
 ﻿
+using SteamKit2;
+using System.Collections.Generic;
 namespace SteamKit2X.Achievements
 {
     /// <summary>
@@ -9,7 +11,7 @@ namespace SteamKit2X.Achievements
         /// <summary>
         /// The default value for the achievement.
         /// </summary>
-        public string DefaultValue { get; private set; }
+        public int DefaultValue { get; private set; }
 
         /// <summary>
         /// Whether the achievement is hidden or not.
@@ -36,14 +38,50 @@ namespace SteamKit2X.Achievements
         /// <param name="description">The description of the achievement.</param>
         /// <param name="icon">The icon of the achievement when achieved.</param>
         /// <param name="iconGray">The icon of the achievement when not yet achieved.</param>
-        public GameAchievement(string apiName, string defaultValue, string displayName,
-                bool hidden, string description, string icon, string iconGray)
+        public GameAchievement(string apiName, int defaultValue, string displayName, bool hidden, string description, string icon, string iconGray)
             : base(apiName, displayName, description)
         {
             this.DefaultValue = defaultValue;
             this.Hidden = hidden;
             this.Icon = icon;
             this.IconGray = iconGray;
+        }
+
+        /// <summary>
+        /// Load the achievements of the specified application.
+        /// </summary>
+        /// <param name="appId">The id of the application.</param>
+        internal static List<GameAchievement> Load(uint appId)
+        {
+            // Create a list that is able to hold the achievements.
+            var list = new List<GameAchievement>();
+
+            // Get the interface the method is bound to.
+            using (dynamic steamUserStats = WebAPI.GetInterface("ISteamUserStats", API.AppKey))
+            {
+                // Get all the items from the API.
+                KeyValue items = steamUserStats.GetSchemaForGame2(appid : appId, l : "english");
+
+                // Loop through all the achievements.
+                foreach (var item in items["availableGameStats"]["achievements"]["achievement"].Children)
+                {
+                    // Construct the SteamKit2X.Achievements.GameAchievement object from the returned values.
+                    var achievement = new GameAchievement(
+                        item["name"].AsString(),
+                        item["defaultvalue"].AsInteger(),
+                        item["displayName"].AsString(),
+                        item["hidden"].AsBoolean(),
+                        item["description"].AsString(),
+                        item["icon"].AsString(),
+                        item["icongray"].AsString()
+                    );
+
+                    // Add the achievement to the list.
+                    list.Add(achievement);
+                }
+            }
+
+            return list;
         }
     }
 }
