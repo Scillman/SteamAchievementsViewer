@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SteamKit2X.Achievements
 {
     /// <summary>
-    /// A user related achievement.
+    /// An user related achievement.
     /// </summary>
     public class UserAchievement : Achievement
     {
@@ -24,6 +24,19 @@ namespace SteamKit2X.Achievements
             base(apiName, displayName, description)
         {
             Achieved = achieved;
+        }
+
+        /// <summary>
+        /// Allows comparison between <see cref="SteamKit2X.Achievements.UserAchievement"/> objects. 
+        /// </summary>
+        /// <param name="achievement">The achievement that has to be compared to this achievement.</param>
+        /// <returns></returns>
+        public override int CompareTo(Achievement achievement)
+        {
+            // When the achievement is not a SteamKit2X.Achievements.UserAchievement abort.
+            if (!(achievement is UserAchievement))
+                return 1;
+            return base.CompareTo(achievement);
         }
 
         /// <summary>

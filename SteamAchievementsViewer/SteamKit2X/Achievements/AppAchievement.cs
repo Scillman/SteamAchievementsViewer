@@ -48,6 +48,19 @@ namespace SteamKit2X.Achievements
         }
 
         /// <summary>
+        /// Allows comparison between <see cref="SteamKit2X.Achievements.AppAchievement"/> objects. 
+        /// </summary>
+        /// <param name="achievement">The achievement that has to be compared to this achievement.</param>
+        /// <returns></returns>
+        public override int CompareTo(Achievement achievement)
+        {
+            // When the achievement is not a SteamKit2X.Achievements.AppAchievement abort.
+            if (!(achievement is AppAchievement))
+                return 1;
+            return base.CompareTo(achievement);
+        }
+
+        /// <summary>
         /// Load the achievements of the specified application.
         /// </summary>
         /// <param name="appId">The id of the application.</param>

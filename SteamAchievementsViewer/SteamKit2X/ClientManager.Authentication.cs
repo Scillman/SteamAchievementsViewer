@@ -1,16 +1,15 @@
 ﻿using SteamKit2;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UpdateMachineAuthCallback = SteamKit2.SteamUser.UpdateMachineAuthCallback;
+
+/* Authentication
+ *   This file is used for Steam authentication.
+ */
 
 namespace SteamKit2X
 {
-    partial class SteamClient
+    partial class ClientManager
     {
         /// <summary>
         /// The buffer containing the sentry file.
@@ -63,7 +62,7 @@ namespace SteamKit2X
         private void OnMachineAuth(UpdateMachineAuthCallback callback)
         {
             Debug.WriteLine("Updating sentryfile...");
-            sentryFile = callback.FileName;
+            sentryFile = callback.FileName; // TODO: Persistent stentryfile location.
 
             var hash = CryptoHelper.SHAHash(callback.Data);
             File.WriteAllBytes(sentryFile, callback.Data);

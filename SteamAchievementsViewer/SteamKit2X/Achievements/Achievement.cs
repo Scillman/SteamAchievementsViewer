@@ -40,11 +40,11 @@ namespace SteamKit2X.Achievements
         /// </summary>
         /// <param name="achievement">The achievement that has to be compared to this achievement.</param>
         /// <returns></returns>
-        public int CompareTo(Achievement achievement)
+        public virtual int CompareTo(Achievement achievement)
         {
             // Ensure it is an SteamKit2X.Achievements.Achievement object.
             if (achievement == null)
-                throw new ArgumentException("The object is not an SteamKit2X.Achievements.Achievement object.");
+                throw new ArgumentException("The object is not a SteamKit2X.Achievements.Achievement object.");
 
             // Compare achievements by their API name.
             return ApiName.CompareTo(achievement.ApiName);

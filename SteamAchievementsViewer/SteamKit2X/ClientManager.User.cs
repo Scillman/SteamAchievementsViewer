@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SteamKit2;
-using LoggedOnCallback = SteamKit2.SteamUser.LoggedOnCallback;
+﻿using SteamKit2;
+using SteamKit2X.Exceptions;
+using System;
 using LoggedOffCallback = SteamKit2.SteamUser.LoggedOffCallback;
+using LoggedOnCallback = SteamKit2.SteamUser.LoggedOnCallback;
 
 namespace SteamKit2X
 {
-    partial class SteamClient
+    partial class ClientManager
     {
         /// <summary>
         /// The Steam user attached to this client.
         /// </summary>
-        public SteamUser SteamUser { get; private set; }
+        private SteamUser SteamUser { get; set; }
 
         /// <summary>
         /// Initialize the Steam user.
@@ -55,16 +52,19 @@ namespace SteamKit2X
         /// Called when the user has logged on.
         /// </summary>
         /// <param name="callback"></param>
+        /// <exception cref="SteamKit2X.Exceptions.SteamGuardException"/>
         protected virtual void OnLoggedOn(LoggedOnCallback callback)
         {
+            // Throw a new SteamGuardException because we do not have the user's SteamGuardCode.
             if (callback.Result == EResult.AccountLogonDenied)
-            {
-                //
-            }
+                throw new SteamGuardException("Steam Guard Code is required!");
 
+            // When we have logged on successfully we raise the LoggedOn event.
             if (callback.Result == EResult.OK)
             {
-                LoggedOn();
+                // Raise the event when there are listeners.
+                if (LoggedOn != null)
+                    Invoke(LoggedOn);
             }
         }
 
@@ -87,9 +87,12 @@ namespace SteamKit2X
         /// <param name="callback"></param>
         protected virtual void OnLoggedOff(LoggedOffCallback callback)
         {
+            // Only continue when logged off successfully.
             if (callback.Result == EResult.OK)
             {
-                LoggedOff();
+                // Raise the LoggedOff event when we have successfully logged off.
+                if (LoggedOff != null)
+                    Invoke(LoggedOff);
             }
         }
     }

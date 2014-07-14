@@ -1,46 +1,40 @@
 ﻿using System;
+using System.Windows.Forms;
+
+/*
+ * The idea of the SteamKit2X.ClientManager is to
+ * make it easier to access certain information.
+ * 
+ * I for example need the username, password,
+ * Steam Guard Code, friends and achievements of
+ * all the users (user+friends).
+ */
 
 namespace SteamKit2X
 {
     /// <summary>
-    /// Creates a new Steam client. (W.I.P.)
+    /// The <see cref="SteamKit2X.ClientManager"/> is a wrapper for easy access.
     /// </summary>
-    public partial class SteamClient : IDisposable
+    public partial class ClientManager : IDisposable
     {
         /// <summary>
-        /// The username that is used to connect to Steam.
+        /// Creates a new <see cref="SteamKit2X.ClientManager"/> instance.
         /// </summary>
-        public string Username { get; private set; }
-
-        /// <summary>
-        /// The password that is used to connect to Steam.
-        /// </summary>
-        public string Password { get; private set; }
-
-        /// <summary>
-        /// The Steam Guard Code that is used to connect to Steam.
-        /// </summary>
-        public string SteamGuardCode { get; set; }
-
-        /// <summary>
-        /// Creates a new Steam client instance.
-        /// </summary>
-        public SteamClient()
-        {
-            Initialize();
-        }
-
-        /// <summary>
-        /// Creates a new Steam client instance.
-        /// </summary>
+        /// <param name="parent">The form for whom to create the manager.</param>
         /// <param name="username">The username that must used to connect to Steam.</param>
         /// <param name="password">The password that must used to connect to Steam.</param>
         /// <param name="steamGuardCode">The Steam Guard Code that must used to connect to Steam.</param>
-        public SteamClient(string username, string password, string steamGuardCode = null)
+        public ClientManager(Control parent, string username, string password, string steamGuardCode = null)
         {
+            // Used for Cross-Thread-Safe invokes.
+            this.parent = parent;
+
+            // Set the user's information.
             this.Username = username;
             this.Password = password;
             this.SteamGuardCode = steamGuardCode;
+
+            // Initialize the remaining.
             Initialize();
         }
 
@@ -49,9 +43,11 @@ namespace SteamKit2X
         /// </summary>
         private void Initialize()
         {
+            InitializeThreadSafety();
             InitializeConnection();
             InitializeUser();
             InitializeAuthentication();
+            InitializeFriends();
         }
 
         /// <summary>
@@ -79,7 +75,7 @@ namespace SteamKit2X
 
             // Release unmanaged resources.
             {
-
+                // Currently there are no unmanaged resources.
             }
         }
     }

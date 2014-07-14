@@ -1,4 +1,5 @@
 ﻿using SteamKit2X.Achievements;
+using SteamKit2X;
 using System;
 
 /**
@@ -10,12 +11,14 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            var achievements = UserAchievement.Load(76561197991494515, 1250);
-            foreach (var achievement in achievements)
+            using (var manager = new ClientManager(null, "Scillman", "password"))
             {
-                Console.WriteLine(achievement.ToString());
+                var achievements = UserAchievement.Load(76561197991494515, 1250);
+                foreach (var achievement in achievements)
+                {
+                    Console.WriteLine(achievement.ToString());
+                }
             }
-
             Console.ReadKey();
         }
     }

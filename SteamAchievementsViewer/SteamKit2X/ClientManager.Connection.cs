@@ -1,13 +1,16 @@
 ﻿using SteamKit2;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using ConnectedCallback = SteamKit2.SteamClient.ConnectedCallback;
 using DisconnectedCallback = SteamKit2.SteamClient.DisconnectedCallback;
 
+/* Connection
+ *   This file is to manage the connection to the Steam servers.
+ */
+
 namespace SteamKit2X
 {
-    partial class SteamClient
+    partial class ClientManager
     {
         /// <summary>
         /// The client that is used to connect to the Steam servers.
@@ -62,6 +65,7 @@ namespace SteamKit2X
         /// <param name="steamGuardCode">The Steam Guard Code that must used to connect to Steam.</param>
         public void Connect(string username, string password, string steamGuardCode = null)
         {
+            // Store the user's information.
             this.Username = username;
             this.Password = password;
             this.SteamGuardCode = steamGuardCode;
@@ -97,9 +101,7 @@ namespace SteamKit2X
             if (callback.Result == EResult.OK)
             {
                 if (Connected != null)
-                {
-                    Connected();
-                }
+                    Invoke(Connected);
             }
         }
 
@@ -124,9 +126,7 @@ namespace SteamKit2X
         protected virtual void OnDisconnected(DisconnectedCallback callback)
         {
             if (Disconnected != null)
-            {
-                Disconnected();
-            }
+                Invoke(Disconnected);
         }
     }
 }
