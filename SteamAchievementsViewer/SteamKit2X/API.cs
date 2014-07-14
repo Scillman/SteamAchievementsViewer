@@ -28,6 +28,7 @@ namespace SteamKit2X
                 // Ensure it is not empty.
                 if (_appKey == null)
                 {
+#if DEBUG
                     try
                     {
                         // Load the key from file.
@@ -38,6 +39,9 @@ namespace SteamKit2X
                         Debug.WriteLine("Could not get the application key.");
                         return null;
                     }
+#else
+                    _appKey = "YOURAPIKEY";
+#endif
                 }
                 return _appKey;
             }

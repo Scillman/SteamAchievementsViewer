@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Achievements\GameAchievement.cs" />
+    <Compile Include="Achievements\AppAchievement.cs" />
     <Compile Include="Achievements\UserAchievement.cs" />
     <Compile Include="API.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,13 +1,12 @@
-﻿
-using SteamKit2;
-using System;
+﻿using SteamKit2;
 using System.Collections.Generic;
+
 namespace SteamKit2X.Achievements
 {
     /// <summary>
-    /// An achievement of a game.
+    /// An achievement of an application.
     /// </summary>
-    public class GameAchievement : Achievement
+    public class AppAchievement : Achievement
     {
         /// <summary>
         /// The default value for the achievement.
@@ -20,26 +19,26 @@ namespace SteamKit2X.Achievements
         public bool Hidden { get; private set; }
 
         /// <summary>
-        /// The icon of the achievement when achieved.
+        /// The url to the icon of the achievement when achieved.
         /// </summary>
         public string Icon { get; private set; }
 
         /// <summary>
-        /// The icon of the achievement when not yet achieved.
+        /// The url to the icon of the achievement when not yet achieved.
         /// </summary>
         public string IconGray { get; private set; }
 
         /// <summary>
-        /// Creates a new game specific achievement.
+        /// Creates a new application specific achievement.
         /// </summary>
         /// <param name="apiName">The API name of the achievement.</param>
         /// <param name="defaultValue">The default value of the achievement.</param>
         /// <param name="displayName">The display name/title of the achievement.</param>
         /// <param name="hidden">Whether the achievement has to be hidden or not.</param>
         /// <param name="description">The description of the achievement.</param>
-        /// <param name="icon">The icon of the achievement when achieved.</param>
-        /// <param name="iconGray">The icon of the achievement when not yet achieved.</param>
-        public GameAchievement(string apiName, int defaultValue, string displayName, bool hidden, string description, string icon, string iconGray)
+        /// <param name="icon">The url to the icon of the achievement when achieved.</param>
+        /// <param name="iconGray">The url to the icon of the achievement when not yet achieved.</param>
+        public AppAchievement(string apiName, int defaultValue, string displayName, bool hidden, string description, string icon, string iconGray)
             : base(apiName, displayName, description)
         {
             this.DefaultValue = defaultValue;
@@ -52,10 +51,10 @@ namespace SteamKit2X.Achievements
         /// Load the achievements of the specified application.
         /// </summary>
         /// <param name="appId">The id of the application.</param>
-        public static List<GameAchievement> Load(uint appId)
+        public static List<AppAchievement> Load(uint appId)
         {
             // Create a list that is able to hold the achievements.
-            var list = new List<GameAchievement>();
+            var list = new List<AppAchievement>();
 
             // Get the interface the method is bound to.
             using (dynamic steamUserStats = WebAPI.GetInterface("ISteamUserStats", API.AppKey))
@@ -66,8 +65,8 @@ namespace SteamKit2X.Achievements
                 // Loop through all the achievements.
                 foreach (var item in items["availableGameStats"]["achievements"].Children)
                 {
-                    // Construct the SteamKit2X.Achievements.GameAchievement object from the returned values.
-                    var achievement = new GameAchievement(
+                    // Construct the SteamKit2X.Achievements.AppAchievement object from the returned values.
+                    var achievement = new AppAchievement(
                         item["name"].AsString(),
                         item["defaultvalue"].AsInteger(),
                         item["displayName"].AsString(),
