@@ -26,7 +26,7 @@ namespace SteamKit2X
         /// <param name="steamGuardCode">The Steam Guard Code that must used to connect to Steam.</param>
         public ClientManager(Control parent, string username, string password, string steamGuardCode = null)
         {
-            // Used for Cross-Thread-Safe invokes.
+            // Used for cross-thread invokes.
             this.parent = parent;
 
             // Set the user's information.

@@ -1,6 +1,5 @@
-﻿using SteamKit2X.Achievements;
-using SteamKit2X;
-using System;
+﻿using System;
+using System.Windows.Forms;
 
 /**
  * This project is sololy used for minor testing purposes.
@@ -9,17 +8,15 @@ namespace Test
 {
     class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            using (var manager = new ClientManager(null, "Scillman", "password"))
-            {
-                var achievements = UserAchievement.Load(76561197991494515, 1250);
-                foreach (var achievement in achievements)
-                {
-                    Console.WriteLine(achievement.ToString());
-                }
-            }
-            Console.ReadKey();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }

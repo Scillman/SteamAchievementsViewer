@@ -1,6 +1,7 @@
 ﻿using SteamKit2;
 using SteamKit2X.Users;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using AccountInfoCallback = SteamKit2.SteamUser.AccountInfoCallback;
 using FriendsListCallback = SteamKit2.SteamFriends.FriendsListCallback;
@@ -24,6 +25,9 @@ namespace SteamKit2X
         /// </summary>
         private void InitializeFriends()
         {
+            // Create a new list to store all the friends in.
+            Friends = new List<User>();
+
             // Get the friends handler.
             friends = client.GetHandler<SteamFriends>();
 
@@ -54,6 +58,17 @@ namespace SteamKit2X
             // Get the amount of players inside the friends list.
             var count = friends.GetFriendCount();
             Debug.WriteLine("I have {0} friends!", count);
+
+            for (int i = 0; i < count; i++)
+            {
+                // Get the friend's information.
+                var steamId = friends.GetFriendByIndex(i);
+                var persona = friends.GetFriendPersonaName(steamId);
+
+                // Add the friend and notify the client.
+                Friends.Add(new User(steamId, persona));
+                OnFriendsUpdate();
+            }
         }
 
         /// <summary>
@@ -62,9 +77,9 @@ namespace SteamKit2X
         /// <param name="callback"></param>
         private void OnPersonaState(PersonaStateCallback callback)
         {
-            var user = new User(callback.FriendID, callback.Name);
-            Friends.Add(user);
-            OnFriendsUpdate();
+            //var user = new User(callback.FriendID, callback.Name);
+            //Friends.Add(user);
+            //OnFriendsUpdate();
         }
 
         /// <summary>

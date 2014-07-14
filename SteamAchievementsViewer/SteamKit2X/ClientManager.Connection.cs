@@ -69,6 +69,9 @@ namespace SteamKit2X
             this.Username = username;
             this.Password = password;
             this.SteamGuardCode = steamGuardCode;
+
+            // Do the actual connection.
+            Connect();
         }
 
         /// <summary>

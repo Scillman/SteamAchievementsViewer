@@ -35,7 +35,7 @@ namespace SteamKit2X
         private async void ReadHash()
         {
             // There must be a path to the sentry file first.
-            if (sentryFile != null)
+            if (!string.IsNullOrWhiteSpace(sentryFile))
             {
                 if (File.Exists(sentryFile))
                 {

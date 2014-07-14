@@ -28,6 +28,7 @@ namespace SteamKit2X
         /// <summary>
         /// Called when the user has to logon.
         /// </summary>
+        /// <exception cref="SteamKit2X.Exceptions.SteamGuardException"/>
         public void LogOn()
         {
             SteamUser.LogOn(new SteamUser.LogOnDetails
@@ -39,7 +40,7 @@ namespace SteamKit2X
                 // Steam Guard Code
                 AuthCode = SteamGuardCode,
 
-                SentryFileHash = GetSentryHash()
+                SentryFileHash = null //GetSentryHash()
             });
         }
 
@@ -57,7 +58,7 @@ namespace SteamKit2X
         {
             // Throw a new SteamGuardException because we do not have the user's SteamGuardCode.
             if (callback.Result == EResult.AccountLogonDenied)
-                throw new SteamGuardException("Steam Guard Code is required!");
+                return; // throw new SteamGuardException("Steam Guard Code is required!");
 
             // When we have logged on successfully we raise the LoggedOn event.
             if (callback.Result == EResult.OK)
