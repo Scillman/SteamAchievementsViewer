@@ -16,7 +16,8 @@ namespace SteamKit2X.Managing
     /// <summary>
     /// The base class is responsible for the connection to the Steam network.
     /// </summary>
-    public abstract class ManagerBase
+    /// <remarks>This class is NOT thread-safe!</remarks>
+    public abstract partial class ManagerBase
     {
         /// <summary>
         /// Indicates whether the manager thread is running or not.
@@ -28,13 +29,10 @@ namespace SteamKit2X.Managing
         /// </summary>
         private Thread managerThread;
 
-        /**
-         * SteamKit2 objects.
-         */
-        private SteamClient client;
-        private CallbackManager manager;
-        private SteamUser user;
-        private SteamFriends friends;
+        /// <summary>
+        /// Indicates whether or not the resources have been disposed.
+        /// </summary>
+        private bool Disposed { get; set; }
 
         /// <summary>
         /// Creates a new manager base.
@@ -50,9 +48,14 @@ namespace SteamKit2X.Managing
         /// <exception cref="SteamKit2X.Exceptions.ManagerRunningException"/>
         protected void Start()
         {
-            // Only create a new thread when it does not yet exist.
-            if (managerThread != null)
+            // Ensure the manager thread is not already running.
+            if (managerThread != null || IsRunning)
                 throw new ManagerRunningException("The manager thread is already running.");
+
+            // When the resource have not been disposed, dispose them now.
+            if (!Disposed)
+                Dispose();
+            Disposed = false;
 
             // Create and start the thread.
             managerThread = new Thread(() => Run());
@@ -80,20 +83,20 @@ namespace SteamKit2X.Managing
         private void Initialize()
         {
             // SteamKit2
-            client = new SteamClient();
-            manager = new CallbackManager(client);
-            user = client.GetHandler<SteamUser>();
-            friends = client.GetHandler<SteamFriends>();
+            this.SteamClient = new SteamClient();
+            this.CallbackManager = new CallbackManager(this.SteamClient);
+            this.SteamUser = this.SteamClient.GetHandler<SteamUser>();
+            this.SteamFriends = this.SteamClient.GetHandler<SteamFriends>();
 
             // Register the callbacks
-            manager.Register(new Callback<ConnectedCallback>(OnConnected));
-            manager.Register(new Callback<DisconnectedCallback>(OnDisconnected));
-            manager.Register(new Callback<LoggedOnCallback>(OnLoggedOn));
-            manager.Register(new Callback<LoggedOffCallback>(OnLoggedOff));
-            manager.Register(new Callback<UpdateMachineAuthCallback>(OnMachineAuth));
-            manager.Register(new Callback<AccountInfoCallback>(OnAccountInfo));
-            manager.Register(new Callback<FriendsListCallback>(OnFriendsList));
-            manager.Register(new Callback<PersonaStateCallback>(OnPersonaState));
+            this.CallbackManager.Register(new Callback<ConnectedCallback>(OnConnected));
+            this.CallbackManager.Register(new Callback<DisconnectedCallback>(OnDisconnected));
+            this.CallbackManager.Register(new Callback<LoggedOnCallback>(OnLoggedOn));
+            this.CallbackManager.Register(new Callback<LoggedOffCallback>(OnLoggedOff));
+            this.CallbackManager.Register(new Callback<UpdateMachineAuthCallback>(OnMachineAuth));
+            this.CallbackManager.Register(new Callback<AccountInfoCallback>(OnAccountInfo));
+            this.CallbackManager.Register(new Callback<FriendsListCallback>(OnFriendsList));
+            this.CallbackManager.Register(new Callback<PersonaStateCallback>(OnPersonaState));
         }
 
         /// <summary>
@@ -102,13 +105,13 @@ namespace SteamKit2X.Managing
         private void DoWork()
         {
             // Connect to the Steam network when not yet connected.
-            if (!client.IsConnected)
-                client.Connect();
+            if (!this.SteamClient.IsConnected)
+                this.SteamClient.Connect();
 
             do
             {
                 // Wait 1 second between receiving callbacks.
-                manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
+                this.CallbackManager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
             }
             while (IsRunning);
         }
@@ -118,23 +121,35 @@ namespace SteamKit2X.Managing
         /// </summary>
         private void Dispose()
         {
+            // Notify about the disposed resources.
+            Disposed = true;
+
             // Log the user off.
-            if (user != null)
+            lock (_steamUserLock)
             {
-                user.LogOff();
-                user = null;
+                if (_steamUser != null)
+                {
+                    _steamUser.LogOff();
+                    _steamUser = null;
+                }
             }
 
             // Disconnect from the Steam network.
-            if (client != null)
+            lock (_steamClientLock)
             {
-                client.Disconnect();
-                client = null;
+                if (_steamClient != null)
+                {
+                    _steamClient.Disconnect();
+                    _steamClient = null;
+                }
             }
 
             // Release the references to the remaining SteamKit2 objects.
-            friends = null;
-            manager = null;
+            lock (_steamFriendsLock)
+            {
+                _steamFriends = null;
+            }
+            this.CallbackManager = null;
 
             // Release the reference to this thread, it has stopped and change the running state aswell.
             managerThread = null;

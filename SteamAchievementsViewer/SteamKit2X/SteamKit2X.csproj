@@ -71,6 +71,9 @@
     </Compile>
     <Compile Include="Exceptions\ManagerRunningException.cs" />
     <Compile Include="Managing\ManagerBase.cs" />
+    <Compile Include="Managing\ManagerBase.Properties.cs">
+      <DependentUpon>ManagerBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Managing\SteamManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Achievements\Achievement.cs" />
