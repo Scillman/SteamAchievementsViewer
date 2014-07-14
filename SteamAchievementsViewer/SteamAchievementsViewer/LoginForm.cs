@@ -153,7 +153,7 @@ namespace SteamAchievementsViewer
 
         private void OnMachineAuth(UpdateMachineAuthCallback callback)
         {
-            Debug.WriteLine("Updating sentryfile...");
+            Debug.WriteLine("Updating sentryfile... ({0})", callback.FileName);
 
             var hash = CryptoHelper.SHAHash(callback.Data);
 
