@@ -50,25 +50,6 @@
     <Compile Include="Achievements\AppAchievement.cs" />
     <Compile Include="Achievements\UserAchievement.cs" />
     <Compile Include="API.cs" />
-    <Compile Include="ClientManager.cs" />
-    <Compile Include="ClientManager.Authentication.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientManager.Connection.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientManager.Friends.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientManager.Properties.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientManager.ThreadSafety.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientManager.User.cs">
-      <DependentUpon>ClientManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="Exceptions\ManagerRunningException.cs" />
     <Compile Include="Managing\ManagerBase.cs" />
     <Compile Include="Managing\ManagerBase.Properties.cs">

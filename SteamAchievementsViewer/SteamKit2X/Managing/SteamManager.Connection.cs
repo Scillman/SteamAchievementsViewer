@@ -18,7 +18,13 @@ namespace SteamKit2X.Managing
         {
             // Raise the connected event only when actually connected.
             if (callback.Result == EResult.OK)
+            {
+                // First do the user code.
                 InvokeEvent(Connected);
+
+                // Then continue with our code.
+                SteamManager_Connected();
+            }
         }
 
         /// <summary>

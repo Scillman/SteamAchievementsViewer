@@ -7,7 +7,7 @@ namespace SteamKit2X.Managing
     /// <summary>
     /// The <see cref="SteamKit2X.Managing.SteamManager"/> is resposible for most interaction.
     /// </summary>
-    public partial class SteamManager : ManagerBase
+    public partial class SteamManager : ManagerBase, IDisposable
     {
         /// <summary>
         /// The parent control.
@@ -24,7 +24,6 @@ namespace SteamKit2X.Managing
             this.parent = control;
 
             // Start initializing.
-            InitializeUser();
             InitializeFriends();
         }
 
@@ -37,6 +36,29 @@ namespace SteamKit2X.Managing
             // Ensure method is not null.
             if (method != null)
                 parent.Invoke(method, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Releases all the used resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases all the used resources.
+        /// </summary>
+        /// <param name="disposing">false for unmanaged code only; true for all.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // When not yet disposed, ensure the thread stops and disposes itself.
+                if (!Disposed)
+                    IsRunning = false;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SteamKit2;
 using SteamKit2X.Exceptions;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using AccountInfoCallback = SteamKit2.SteamUser.AccountInfoCallback;
 using ConnectedCallback = SteamKit2.SteamClient.ConnectedCallback;
@@ -19,7 +20,7 @@ using UpdateMachineAuthCallback = SteamKit2.SteamUser.UpdateMachineAuthCallback;
 namespace SteamKit2X.Managing
 {
     /// <summary>
-    /// The base class is responsible for the connection to the Steam network.
+    /// The base class is responsible for the connection to the Steam network. (Not thread-safe!)
     /// </summary>
     /// <remarks>This class is NOT thread-safe!</remarks>
     public abstract partial class ManagerBase
@@ -45,6 +46,7 @@ namespace SteamKit2X.Managing
         protected ManagerBase()
         {
             IsRunning = false;
+            Disposed = true; // The resources are not yet set, so they are disposed.
         }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace SteamKit2X.Managing
 
             // Create and start the thread.
             managerThread = new Thread(() => Run());
+            managerThread.Name = "Manager Thread";
             managerThread.Start();
         }
 
@@ -72,14 +75,31 @@ namespace SteamKit2X.Managing
         /// </summary>
         private void Run()
         {
-            // First initialize all the variables.
-            Initialize();
+            try
+            {
+                // Indicates the manager thread is running.
+                IsRunning = true;
 
-            // Do the actual work.
-            DoWork();
+                // First initialize all the variables.
+                Initialize();
 
-            // Release all the used resources.
-            Dispose();
+                // Do the actual work.
+                DoWork();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                // Release all the used resources.
+                Dispose();
+            }
+
+#if DEBUG
+            // Give a message so we know it has quited.
+            Debug.WriteLine("Manager thread quited!");
+#endif
         }
 
         /// <summary>
@@ -88,20 +108,20 @@ namespace SteamKit2X.Managing
         private void Initialize()
         {
             // SteamKit2
-            this.SteamClient = new SteamClient();
-            this.CallbackManager = new CallbackManager(this.SteamClient);
-            this.SteamUser = this.SteamClient.GetHandler<SteamUser>();
-            this.SteamFriends = this.SteamClient.GetHandler<SteamFriends>();
+            steamClient = new SteamClient();
+            callbackManager = new CallbackManager(steamClient);
+            steamUser = steamClient.GetHandler<SteamUser>();
+            steamFriends = steamClient.GetHandler<SteamFriends>();
 
             // Register the callbacks
-            this.CallbackManager.Register(new Callback<ConnectedCallback>(OnConnected));
-            this.CallbackManager.Register(new Callback<DisconnectedCallback>(OnDisconnected));
-            this.CallbackManager.Register(new Callback<LoggedOnCallback>(OnLoggedOn));
-            this.CallbackManager.Register(new Callback<LoggedOffCallback>(OnLoggedOff));
-            this.CallbackManager.Register(new Callback<UpdateMachineAuthCallback>(OnMachineAuth));
-            this.CallbackManager.Register(new Callback<AccountInfoCallback>(OnAccountInfo));
-            this.CallbackManager.Register(new Callback<FriendsListCallback>(OnFriendsList));
-            this.CallbackManager.Register(new Callback<PersonaStateCallback>(OnPersonaState));
+            callbackManager.Register(new Callback<ConnectedCallback>(OnConnected));
+            callbackManager.Register(new Callback<DisconnectedCallback>(OnDisconnected));
+            callbackManager.Register(new Callback<LoggedOnCallback>(OnLoggedOn));
+            callbackManager.Register(new Callback<LoggedOffCallback>(OnLoggedOff));
+            callbackManager.Register(new Callback<UpdateMachineAuthCallback>(OnMachineAuth));
+            callbackManager.Register(new Callback<AccountInfoCallback>(OnAccountInfo));
+            callbackManager.Register(new Callback<FriendsListCallback>(OnFriendsList));
+            callbackManager.Register(new Callback<PersonaStateCallback>(OnPersonaState));
         }
 
         /// <summary>
@@ -110,12 +130,12 @@ namespace SteamKit2X.Managing
         private void DoWork()
         {
             // Connect to the Steam network.
-            this.SteamClient.Connect();
+            steamClient.Connect();
 
             do
             {
                 // Wait 1 second between receiving callbacks.
-                this.CallbackManager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
+                callbackManager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
             }
             while (IsRunning);
         }
@@ -129,35 +149,19 @@ namespace SteamKit2X.Managing
             Disposed = true;
 
             // Log the user off.
-            lock (_steamUserLock)
-            {
-                if (_steamUser != null)
-                {
-                    _steamUser.LogOff();
-                    _steamUser = null;
-                }
-            }
+            steamUser.LogOff();
+            steamUser = null;
 
             // Disconnect from the Steam network.
-            lock (_steamClientLock)
-            {
-                if (_steamClient != null)
-                {
-                    _steamClient.Disconnect();
-                    _steamClient = null;
-                }
-            }
+            steamClient.Disconnect();
+            steamClient = null;
 
             // Release the references to the remaining SteamKit2 objects.
-            lock (_steamFriendsLock)
-            {
-                _steamFriends = null;
-            }
-            this.CallbackManager = null;
+            steamFriends = null;
+            callbackManager = null;
 
             // Release the reference to this thread, it has stopped and change the running state aswell.
             managerThread = null;
-            IsRunning = false;
         }
 
         #region Callbacks

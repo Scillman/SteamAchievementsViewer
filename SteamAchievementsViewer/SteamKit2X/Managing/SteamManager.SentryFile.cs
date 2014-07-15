@@ -6,7 +6,7 @@ using UpdateMachineAuthCallback = SteamKit2.SteamUser.UpdateMachineAuthCallback;
 /* SENTRY FILE
  *   This file handles the Steam sentry file.
  */
-namespace SteamKit2X.Managing
+namespace SteamKit2X.Managing // TODO: Look for a proper (persistent location) sample.
 {
     partial class SteamManager
     {
@@ -57,13 +57,15 @@ namespace SteamKit2X.Managing
         /// <param name="callback"></param>
         protected override void OnMachineAuth(UpdateMachineAuthCallback callback)
         {
+            System.Diagnostics.Debug.WriteLine("OnMachineAuth");
+
             Debug.WriteLine("Updating sentryfile...");
             sentryFile = callback.FileName; // TODO: Persistent stentryfile location.
 
             var hash = CryptoHelper.SHAHash(callback.Data);
             File.WriteAllBytes(sentryFile, callback.Data);
 
-            SteamUser.SendMachineAuthResponse(new SteamUser.MachineAuthDetails
+            steamUser.SendMachineAuthResponse(new SteamUser.MachineAuthDetails
             {
                 FileName = callback.FileName,
 

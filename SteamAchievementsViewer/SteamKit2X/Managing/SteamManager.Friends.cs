@@ -28,7 +28,7 @@ namespace SteamKit2X.Managing
         protected override void OnAccountInfo(AccountInfoCallback callback)
         {
             // Go online so we can retrieve the user's friendslist.
-            SteamFriends.SetPersonaState(EPersonaState.Online);
+            steamFriends.SetPersonaState(EPersonaState.Online);
         }
 
         /// <summary>

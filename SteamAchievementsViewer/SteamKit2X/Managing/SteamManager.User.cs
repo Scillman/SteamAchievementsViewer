@@ -12,27 +12,18 @@ namespace SteamKit2X.Managing
     partial class SteamManager
     {
         /// <summary>
-        /// Initialize the user part.
-        /// </summary>
-        private void InitializeUser()
-        {
-            Connected += SteamManager_Connected;
-        }
-
-        /// <summary>
         /// Called when we have succesfully connected to the Steam network.
         /// </summary>
-        /// <param name="obj"></param>
-        private void SteamManager_Connected(EventArgs obj)
+        private void SteamManager_Connected()
         {
-            SteamUser.LogOn(new SteamUser.LogOnDetails
+            base.steamUser.LogOn(new SteamUser.LogOnDetails
             {
                 // User credentials
                 Username = this.Username,
                 Password = this.Password,
 
                 // Steam Guard Code
-                AuthCode = this.SteamGuardCode,
+                AuthCode = string.IsNullOrWhiteSpace(SteamGuardCode) ? null : SteamGuardCode,
 
                 // Machine's sentry file
                 SentryFileHash = GetSentryHash()
@@ -89,7 +80,7 @@ namespace SteamKit2X.Managing
         }
 
         /// <summary>
-        /// Log the user off.
+        /// Log the user off. (Also disconnects from the Steam network.)
         /// </summary>
         /// <exception cref="System.ObjectDisposedException"/>
         public void LogOff()
