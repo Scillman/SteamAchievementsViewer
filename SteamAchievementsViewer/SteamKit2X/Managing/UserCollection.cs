@@ -9,6 +9,30 @@ namespace SteamKit2X.Managing
     public class UserCollection : List<User>
     {
         /// <summary>
+        /// Get the <see cref="SteamKit2X.Users.User"/> with the specified id.
+        /// </summary>
+        /// <param name="steamID">The Steam ID of the user.</param>
+        /// <returns>The user with the specified Steam ID; null otherwise.</returns>
+        public User this[ulong steamID]
+        {
+            get
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    // Get the user that is stored at the current index.
+                    var user = this[i];
+
+                    // Return the user when its Steam ID matches.
+                    if (user.SteamID == steamID)
+                        return user;
+                }
+
+                return null;
+            }
+        }
+
+
+        /// <summary>
         /// Creates a new instance of <see cref="SteamKit2X.Managing.UserCollection"/>.
         /// </summary>
         public UserCollection()

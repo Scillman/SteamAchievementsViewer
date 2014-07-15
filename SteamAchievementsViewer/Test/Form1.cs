@@ -1,5 +1,6 @@
 ﻿using SteamKit2X.Managing;
 using SteamKit2X.Managing.Events;
+using SteamKit2X.Users;
 using System;
 using System.Windows.Forms;
 
@@ -13,6 +14,11 @@ namespace Test
         {
             InitializeComponent();
             InitializeManager();
+
+            // The SteamKit2X.Users.User object is put inside the listBox1.
+            // The properties Name and SteamID are used for display and retrieval.
+            listBox1.DisplayMember = "Name";
+            listBox1.ValueMember = "SteamID";
         }
 
         /// <summary>
@@ -71,10 +77,25 @@ namespace Test
         private void manager_FriendsUpdate(FriendsEventArgs e)
         {
             var friends = manager.Friends;
-            if (friends.Count > 0)
+
+            if (e.SingleUser)
             {
-                var newFriend = friends[friends.Count - 1];
-                Console.WriteLine("Friends count: {0}, ID: {1}, Name: {2}", manager.Friends.Count, newFriend.SteamID, newFriend.Name);
+                User user = friends[e.SteamID];
+                if (user != null)
+                {
+                    listBox1.Items.Remove(user);
+                    listBox1.Items.Add(user);
+                }
+            }
+            else
+            {
+                listBox1.Items.Clear();
+                if (friends.Count > 0)
+                {
+                    var newFriend = friends[friends.Count - 1];
+                    listBox1.Items.Add(newFriend);
+                    Console.WriteLine("Friends count: {0}, ID: {1}, Name: {2}", manager.Friends.Count, newFriend.SteamID, newFriend.Name);
+                }
             }
             Log(e.Message);
         }
@@ -102,6 +123,13 @@ namespace Test
             message = string.Format("{0}\r\n", message);
             richTextBox1.AppendText(message);
             System.Diagnostics.Debug.Write(message);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var user = listBox1.Items[listBox1.SelectedIndex] as User;
+            if (user != null)
+                MessageBox.Show(string.Format("SteamID: {0}", user.SteamID), "SteamID", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
