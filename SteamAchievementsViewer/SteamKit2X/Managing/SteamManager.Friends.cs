@@ -49,7 +49,7 @@ namespace SteamKit2X.Managing
 
                 // Add the friend to the friendslist.
                 foreach (var friend in friends)
-                    _friends.Add(new User(friend.SteamID));
+                    _friends.Add(new User(friend.SteamID.ConvertToUInt64()));
             }
 
             // Raise the event as we modified the list.
@@ -62,11 +62,14 @@ namespace SteamKit2X.Managing
         /// <param name="callback"></param>
         protected override void OnPersonaState(PersonaStateCallback callback)
         {
+            // Convert the id of the user into an 64-bit integer value.
+            var id = callback.FriendID.ConvertToUInt64();
+
             // Update the information of the friend.
-            Friends.Update(callback.FriendID, callback.Name);
+            Friends.Update(id, callback.Name);
 
             // Raise the event as we modified the list.
-            OnFriendsUpdate(new FriendsEventArgs(true, string.Format("The user with id {0} had its name updated.", callback.FriendID), callback.FriendID));
+            OnFriendsUpdate(new FriendsEventArgs(true, string.Format("The user with id {0} had its name updated.", id), id));
         }
 
         /// <summary>
@@ -80,6 +83,6 @@ namespace SteamKit2X.Managing
         /// <summary>
         /// Raised when a change in the friendslist has occured.
         /// </summary>
-        public event Action<EventArgs> FriendsUpdate;
+        public event Action<FriendsEventArgs> FriendsUpdate;
     }
 }

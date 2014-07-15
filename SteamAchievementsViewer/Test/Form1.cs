@@ -1,6 +1,7 @@
-﻿using System.Windows.Forms;
-using SteamKit2X.Managing;
+﻿using SteamKit2X.Managing;
+using SteamKit2X.Managing.Events;
 using System;
+using System.Windows.Forms;
 
 namespace Test
 {
@@ -38,12 +39,14 @@ namespace Test
                 manager = new SteamManager(this);
 
                 // Connection
-                manager.Connected += manager_Connected;
-                manager.Disconnected += manager_Disconnected;
+                manager.Connected += EventLog;
+                manager.Disconnected += EventLog;
 
                 // User
-                manager.LoggedOn += manager_LoggedOn;
-                manager.LoggedOff += manager_LoggedOff;
+                manager.LoggedOn += EventLog;
+                manager.LoggedOff += EventLog;
+                manager.LogOnFailed += EventLog;
+                manager.LogOffFailed += EventLog;
 
                 // Authentication
                 manager.RequestsSteamGuardCode += manager_RequestsSteamGuardCode;
@@ -56,48 +59,24 @@ namespace Test
         /**
          * The user has to enter a Steam Guard Code to continue.
          */
-        private void manager_RequestsSteamGuardCode(EventArgs e)
+        private void manager_RequestsSteamGuardCode(AuthenticationEventArgs e)
         {
-            Console.WriteLine("Please enter your Steam Guard Code.", "Steam Guard Code", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            MessageBox.Show("Please enter your Steam Guard Code.", "Steam Guard Code", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            Log(e.Message);
         }
 
         /**
          * The friendslist has updated.
          */
-        private void manager_FriendsUpdate(EventArgs e)
+        private void manager_FriendsUpdate(FriendsEventArgs e)
         {
             var friends = manager.Friends;
             if (friends.Count > 0)
             {
                 var newFriend = friends[friends.Count - 1];
-                Console.WriteLine("Friend count: {0}, ID: {1}, Name: {2}", manager.Friends.Count, newFriend.SteamID, newFriend.Name);
+                Console.WriteLine("Friends count: {0}, ID: {1}, Name: {2}", manager.Friends.Count, newFriend.SteamID, newFriend.Name);
             }
-        }
-
-        /**
-         * Log-On/Log-Off notifications
-         */
-        private void manager_LoggedOn(EventArgs e)
-        {
-            Console.WriteLine("Successfully logged on to your profile.", "Logged on", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void manager_LoggedOff(EventArgs e)
-        {
-            Console.WriteLine("Successfully logged off your profile.", "Logged off", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /**
-         * Connection (not so important in the form)
-         */
-        private void manager_Connected(EventArgs e)
-        {
-            Console.WriteLine("Successfully connected to the Steam servers.", "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void manager_Disconnected(EventArgs e)
-        {
-            Console.WriteLine("Successfully disconnected from the Steam servers.", "Disconnected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Log(e.Message);
         }
 
         /**
@@ -111,6 +90,18 @@ namespace Test
         private void button2_Click(object sender, EventArgs e)
         {
             manager.LogOff();
+        }
+
+        private void EventLog(ManagerEventArgs e)
+        {
+            Log(e.Message);
+        }
+
+        private void Log(string message)
+        {
+            message = string.Format("{0}\r\n", message);
+            richTextBox1.AppendText(message);
+            System.Diagnostics.Debug.Write(message);
         }
     }
 }
