@@ -1,4 +1,5 @@
 ﻿using SteamKit2;
+using SteamKit2X.Managing.Events;
 using System;
 using ConnectedCallback = SteamKit2.SteamClient.ConnectedCallback;
 using DisconnectedCallback = SteamKit2.SteamClient.DisconnectedCallback;
@@ -20,10 +21,15 @@ namespace SteamKit2X.Managing
             if (callback.Result == EResult.OK)
             {
                 // First do the user code.
-                InvokeEvent(Connected);
+                InvokeEvent(Connected, new ConnectionEventArgs(true, "Connected successfully."));
 
                 // Then continue with our code.
                 SteamManager_Connected();
+            }
+            else
+            {
+                // Raise the failed event when unsuccessfull.
+                InvokeEvent(ConnectionFailed, new ConnectionEventArgs(false, "Could not connect to the Steam network."));
             }
         }
 
@@ -33,17 +39,22 @@ namespace SteamKit2X.Managing
         /// <param name="callback"></param>
         protected override void OnDisconnected(DisconnectedCallback callback)
         {
-            InvokeEvent(Disconnected);
+            InvokeEvent(Disconnected, new ConnectionEventArgs(true, "Disconnected successfully."));
         }
 
         /// <summary>
         /// Called when we have successfully connected to the Steam servers.
         /// </summary>
-        public event Action<EventArgs> Connected;
+        public event Action<ConnectionEventArgs> Connected;
+
+        /// <summary>
+        /// Called when the connection to the Steam network failed.
+        /// </summary>
+        public event Action<ConnectionEventArgs> ConnectionFailed;
 
         /// <summary>
         /// Called when we have successfully disconnected from the Steam servers.
         /// </summary>
-        public event Action<EventArgs> Disconnected;
+        public event Action<ConnectionEventArgs> Disconnected;
     }
 }

@@ -51,10 +51,14 @@
     <Compile Include="Achievements\UserAchievement.cs" />
     <Compile Include="API.cs" />
     <Compile Include="Exceptions\ManagerRunningException.cs" />
+    <Compile Include="Managing\Events\AuthenticationEventArgs.cs" />
+    <Compile Include="Managing\Events\ConnectionEventArgs.cs" />
+    <Compile Include="Managing\Events\FriendsEventArgs.cs" />
     <Compile Include="Managing\ManagerBase.cs" />
     <Compile Include="Managing\ManagerBase.Properties.cs">
       <DependentUpon>ManagerBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Managing\Events\ManagerEventArgs.cs" />
     <Compile Include="Managing\SteamManager.cs" />
     <Compile Include="Managing\SteamManager.Connection.cs">
       <DependentUpon>SteamManager.cs</DependentUpon>

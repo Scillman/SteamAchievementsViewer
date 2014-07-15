@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SteamKit2X.Managing.Events;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -31,11 +32,12 @@ namespace SteamKit2X.Managing
         /// Invoke the event on the thread of the parent control.
         /// </summary>
         /// <param name="method">The method that has to be invoked.</param>
-        private void InvokeEvent(Delegate method)
+        /// <param name="e">The event arguments.</param>
+        private void InvokeEvent(Delegate method, ManagerEventArgs e)
         {
             // Ensure method is not null.
             if (method != null)
-                parent.Invoke(method, EventArgs.Empty);
+                parent.Invoke(method, e);
         }
 
         /// <summary>

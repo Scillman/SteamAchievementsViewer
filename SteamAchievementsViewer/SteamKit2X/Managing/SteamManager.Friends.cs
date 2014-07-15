@@ -1,4 +1,5 @@
 ﻿using SteamKit2;
+using SteamKit2X.Managing.Events;
 using SteamKit2X.Users;
 using System;
 using AccountInfoCallback = SteamKit2.SteamUser.AccountInfoCallback;
@@ -52,7 +53,7 @@ namespace SteamKit2X.Managing
             }
 
             // Raise the event as we modified the list.
-            OnFriendsUpdate();
+            OnFriendsUpdate(new FriendsEventArgs(false, "The friendslist has been received."));
         }
 
         /// <summary>
@@ -65,15 +66,15 @@ namespace SteamKit2X.Managing
             Friends.Update(callback.FriendID, callback.Name);
 
             // Raise the event as we modified the list.
-            OnFriendsUpdate();
+            OnFriendsUpdate(new FriendsEventArgs(true, string.Format("The user with id {0} had its name updated.", callback.FriendID), callback.FriendID));
         }
 
         /// <summary>
         /// Called when a change in the friendslist has been made.
         /// </summary>
-        protected virtual void OnFriendsUpdate()
+        protected virtual void OnFriendsUpdate(FriendsEventArgs e)
         {
-            InvokeEvent(FriendsUpdate);
+            InvokeEvent(FriendsUpdate, e);
         }
 
         /// <summary>

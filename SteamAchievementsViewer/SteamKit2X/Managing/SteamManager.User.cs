@@ -1,6 +1,8 @@
 ﻿using SteamKit2;
 using SteamKit2X.Exceptions;
+using SteamKit2X.Managing.Events;
 using System;
+using System.Diagnostics;
 using LoggedOffCallback = SteamKit2.SteamUser.LoggedOffCallback;
 using LoggedOnCallback = SteamKit2.SteamUser.LoggedOnCallback;
 
@@ -38,11 +40,19 @@ namespace SteamKit2X.Managing
         {
             // Raise the Steam Guard Code event when we need the Steam Guard Code.
             if (callback.Result == EResult.AccountLogonDenied)
-                InvokeEvent(RequestsSteamGuardCode);
+                InvokeEvent(RequestsSteamGuardCode,
+                    new AuthenticationEventArgs("The Steam Guard Code of this account is required to log on.", true));
 
             // Raise the logged on event when successfully logged on.
-            if (callback.Result == EResult.OK)
-                InvokeEvent(LoggedOn);
+            else if (callback.Result == EResult.OK)
+                InvokeEvent(LoggedOn, new AuthenticationEventArgs("The user has logged on successfully."));
+
+            // Raise a log on failed.
+            else
+            {
+                InvokeEvent(LogOnFailed, new AuthenticationEventArgs("The user could not log on to his account."));
+                Debug.WriteLine("Log on failed: {0}", callback.Result);
+            }
         }
 
         /// <summary>
@@ -53,7 +63,12 @@ namespace SteamKit2X.Managing
         {
             // Raise the logged off event when successfully logged off.
             if (callback.Result == EResult.OK)
-                InvokeEvent(LoggedOff);
+                InvokeEvent(LoggedOff, new AuthenticationEventArgs("The user has logged off successfully."));
+            else
+            {
+                InvokeEvent(LogOffFailed, new AuthenticationEventArgs("The user could not be logged off successfully."));
+                Debug.WriteLine("Log off failed: {0}", callback.Result);
+            }
         }
 
         /// <summary>
@@ -93,17 +108,26 @@ namespace SteamKit2X.Managing
         /// <summary>
         /// Called when the user's account/machine has to be authenticated with the Steam Guard Code.
         /// </summary>
-        public event Action<EventArgs> RequestsSteamGuardCode;
-
+        public event Action<AuthenticationEventArgs> RequestsSteamGuardCode;
 
         /// <summary>
         /// Raised when the user has logged on.
         /// </summary>
-        public event Action<EventArgs> LoggedOn;
+        public event Action<AuthenticationEventArgs> LoggedOn;
+
+        /// <summary>
+        /// Raised when the user was not able to log on.
+        /// </summary>
+        public event Action<AuthenticationEventArgs> LogOnFailed;
 
         /// <summary>
         /// Raised when the user has logged off.
         /// </summary>
-        public event Action<EventArgs> LoggedOff;
+        public event Action<AuthenticationEventArgs> LoggedOff;
+
+        /// <summary>
+        /// Raised when the user was not able to log off.
+        /// </summary>
+        public event Action<AuthenticationEventArgs> LogOffFailed;
     }
 }
