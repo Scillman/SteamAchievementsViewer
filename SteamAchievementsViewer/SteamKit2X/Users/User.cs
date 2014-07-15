@@ -10,21 +10,21 @@ namespace SteamKit2X.Users
         /// <summary>
         /// Get the steamd id of the user.
         /// </summary>
-        public SteamID SteamID { get; private set; }
+        public ulong SteamID { get; private set; }
 
         /// <summary>
         /// Get the name of the user.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Creates a new user instance.
         /// </summary>
-        /// <param name="steamId"></param>
-        /// <param name="name"></param>
-        public User(SteamID steamId, string name)
+        /// <param name="steamID">The SteamID of the user.</param>
+        /// <param name="name">The name of the user.</param>
+        public User(ulong steamID, string name = "[unknown]")
         {
-            this.SteamID = steamId;
+            this.SteamID = steamID;
             this.Name = name;
         }
     }

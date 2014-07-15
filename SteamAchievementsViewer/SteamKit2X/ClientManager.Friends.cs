@@ -55,6 +55,7 @@ namespace SteamKit2X
         /// <param name="callback"></param>
         private void OnFriendsList(FriendsListCallback callback)
         {
+            //var friends = callback.FriendList;
             // Get the amount of players inside the friends list.
             var count = friends.GetFriendCount();
             Debug.WriteLine("I have {0} friends!", count);

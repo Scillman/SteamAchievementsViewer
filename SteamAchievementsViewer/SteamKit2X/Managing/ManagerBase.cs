@@ -11,6 +11,11 @@ using LoggedOnCallback = SteamKit2.SteamUser.LoggedOnCallback;
 using PersonaStateCallback = SteamKit2.SteamFriends.PersonaStateCallback;
 using UpdateMachineAuthCallback = SteamKit2.SteamUser.UpdateMachineAuthCallback;
 
+/* TODO
+ *   - Clean this up.
+ *   - Add additional callback methods.
+ *   - Remove the locks if no longer needed.
+ */
 namespace SteamKit2X.Managing
 {
     /// <summary>
@@ -22,7 +27,7 @@ namespace SteamKit2X.Managing
         /// <summary>
         /// Indicates whether the manager thread is running or not.
         /// </summary>
-        protected bool IsRunning { get; private set; }
+        protected bool IsRunning { get; set; }
 
         /// <summary>
         /// The manager thread.
@@ -32,7 +37,7 @@ namespace SteamKit2X.Managing
         /// <summary>
         /// Indicates whether or not the resources have been disposed.
         /// </summary>
-        private bool Disposed { get; set; }
+        protected bool Disposed { get; private set; }
 
         /// <summary>
         /// Creates a new manager base.
@@ -104,9 +109,8 @@ namespace SteamKit2X.Managing
         /// </summary>
         private void DoWork()
         {
-            // Connect to the Steam network when not yet connected.
-            if (!this.SteamClient.IsConnected)
-                this.SteamClient.Connect();
+            // Connect to the Steam network.
+            this.SteamClient.Connect();
 
             do
             {

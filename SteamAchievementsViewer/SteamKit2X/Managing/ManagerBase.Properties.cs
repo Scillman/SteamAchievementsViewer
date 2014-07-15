@@ -6,6 +6,9 @@ using System;
  */
 namespace SteamKit2X.Managing
 {
+    // ========================================== //
+    // TODO: Double check that I need locks here. //
+    // ========================================== //
     partial class ManagerBase
     {
         /// <summary>
