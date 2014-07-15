@@ -55,7 +55,7 @@ namespace SteamKit2X.Managing // TODO: Look for a proper (persistent location) s
         /// Called when the machine's authentication data has to be updated.
         /// </summary>
         /// <param name="callback"></param>
-        protected override void OnMachineAuth(UpdateMachineAuthCallback callback)
+        protected override void OnUpdateMachineAuth(UpdateMachineAuthCallback callback)
         {
             System.Diagnostics.Debug.WriteLine("OnMachineAuth");
 
