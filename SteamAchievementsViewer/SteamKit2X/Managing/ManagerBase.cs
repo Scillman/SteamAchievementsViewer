@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Threading;
 // SteamKit2 Callbacks
 using AccountInfoCallback       = SteamKit2.SteamUser.AccountInfoCallback;
-using BaseJobCallback           = SteamKit2.SteamClient.BaseJobCallback;
 using ChatActionResultCallback  = SteamKit2.SteamFriends.ChatActionResultCallback;
 using ChatEnterCallback         = SteamKit2.SteamFriends.ChatEnterCallback;
 using ChatInviteCallback        = SteamKit2.SteamFriends.ChatInviteCallback;
@@ -132,7 +131,6 @@ namespace SteamKit2X.Managing
             // Register the overridable callbacks
             {
                 #region SteamClient
-                callbackManager.Register(new Callback<BaseJobCallback>(OnBaseJob));
                 callbackManager.Register(new Callback<CMListCallback>(OnCMList));
                 callbackManager.Register(new Callback<ConnectedCallback>(OnConnected));
                 callbackManager.Register(new Callback<DisconnectedCallback>(OnDisconnected));
@@ -216,12 +214,6 @@ namespace SteamKit2X.Managing
         #region Callbacks
 
         #region SteamClient
-
-        /// <summary>
-        /// Called when...
-        /// </summary>
-        /// <param name="callback"></param>
-        protected virtual void OnBaseJob(BaseJobCallback callback) { }
 
         /// <summary>
         /// Called when the cleint received the CM list from Steam.
