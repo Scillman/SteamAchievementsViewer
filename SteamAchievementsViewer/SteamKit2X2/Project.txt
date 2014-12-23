@@ -1,0 +1,11 @@
+﻿<project_name>.Data
+	This is where the physical data resides.
+
+<project_name>.Economy
+	This is where all the economy related classes reside aka trading.
+
+<project_name>.Internal
+	DO NOT USE. This is the link between the library and SteamKit2/Steam Web API.
+
+<project_name>.Security
+	This is where the security measurements are taken.

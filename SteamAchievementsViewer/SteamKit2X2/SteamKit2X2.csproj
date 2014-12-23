@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{686D3D26-7471-44D6-9519-FB5832827865}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SteamKit2X2</RootNamespace>
+    <AssemblyName>SteamKit2X2</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SteamKit2X2.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamKit2">
+      <HintPath>..\packages\SteamKit2.1.6.2\lib\net40\SteamKit2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Internal\IGCVersion.cs" />
+    <Compile Include="Internal\IPortal2Leaderboards.cs" />
+    <Compile Include="Internal\ITFPromos.cs" />
+    <Compile Include="Internal\SteamAPI\IAccountRecoveryService.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_218620.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_221540.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_238460.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_440.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_570.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_620.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_730.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_841.cs" />
+    <Compile Include="Internal\SteamAPI\IEconService.cs" />
+    <Compile Include="Internal\SteamAPI\IGameServersService.cs" />
+    <Compile Include="Internal\SteamAPI\IGCVersion_205790.cs" />
+    <Compile Include="Internal\SteamAPI\IGCVersion_730.cs" />
+    <Compile Include="Internal\SteamAPI\IGCVersion_570.cs" />
+    <Compile Include="Internal\SteamAPI\IGCVersion_440.cs" />
+    <Compile Include="Internal\SteamAPI\IPlayerService.cs" />
+    <Compile Include="Internal\SteamAPI\IPortal2Leaderboards_841.cs" />
+    <Compile Include="Internal\SteamAPI\IPortal2Leaderboards_620.cs" />
+    <Compile Include="Internal\SteamAPI\IPublishedFileService.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamApps.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamCDN.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamDirectory.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamEconomy.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamEnvoy.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamNews.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamPayPalPaymentsHub.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamRemoteStorage.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamUser.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamUserAuth.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamUserOAuth.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamUserStats.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamWebAPIUtil.cs" />
+    <Compile Include="Internal\SteamAPI\ISteamWebUserPresenceOAuth.cs" />
+    <Compile Include="Internal\SteamAPI\ITFItems_440.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_841.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_730.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_620.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_570.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_440.cs" />
+    <Compile Include="Internal\SteamAPI\ITFPromos_205790.cs" />
+    <Compile Include="OldSchool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Internal\API.cs" />
+    <Compile Include="Internal\IDOTA2Fantasy.cs" />
+    <Compile Include="Internal\IDOTA2Match.cs" />
+    <Compile Include="Internal\IEconDOTA2.cs" />
+    <Compile Include="Internal\IEconItems.cs" />
+    <Compile Include="Internal\SteamAPI\ICSGOServers_730.cs" />
+    <Compile Include="Internal\SteamAPI\IDOTA2Fantasy_205790.cs" />
+    <Compile Include="Internal\SteamAPI\IDOTA2Fantasy_570.cs" />
+    <Compile Include="Internal\SteamAPI\IDOTA2Match_205790.cs" />
+    <Compile Include="Internal\SteamAPI\IDOTA2Match_570.cs" />
+    <Compile Include="Internal\SteamAPI\IEconDOTA2_205790.cs" />
+    <Compile Include="Internal\SteamAPI\IEconDOTA2_570.cs" />
+    <Compile Include="Internal\SteamAPI\IEconItems_205790.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Data\app.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Economy\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Project.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
