@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface IEconItems
+    public interface IEconItems
     {
         /// <summary>
         /// 

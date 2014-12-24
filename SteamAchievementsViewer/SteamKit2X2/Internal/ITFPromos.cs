@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface ITFPromos
+    public interface ITFPromos
     {
         /// <summary>
         /// 

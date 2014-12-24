@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\IGCVersion.cs" />
     <Compile Include="Internal\IPortal2Leaderboards.cs" />
     <Compile Include="Internal\ITFPromos.cs" />
     <Compile Include="Internal\SteamAPI\IAccountRecoveryService.cs" />
@@ -104,6 +103,7 @@
     <Compile Include="Internal\SteamAPI\IEconDOTA2_205790.cs" />
     <Compile Include="Internal\SteamAPI\IEconDOTA2_570.cs" />
     <Compile Include="Internal\SteamAPI\IEconItems_205790.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

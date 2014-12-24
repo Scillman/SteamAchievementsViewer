@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface IEconDOTA2
+    public interface IEconDOTA2
     {
         /// <summary>
         /// 

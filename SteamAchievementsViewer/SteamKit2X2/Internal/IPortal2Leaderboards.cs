@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface IPortal2Leaderboards
+    public interface IPortal2Leaderboards
     {
         /// <summary>
         /// 

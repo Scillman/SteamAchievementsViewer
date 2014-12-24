@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface IDOTA2Match
+    public interface IDOTA2Match
     {
         /// <summary>
         /// 

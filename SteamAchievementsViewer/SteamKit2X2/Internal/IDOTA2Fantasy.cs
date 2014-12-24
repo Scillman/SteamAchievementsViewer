@@ -1,7 +1,7 @@
 ﻿
 namespace SteamKit2X2.Internal
 {
-    interface IDOTA2Fantasy
+    public interface IDOTA2Fantasy
     {
         /// <summary>
         /// 

@@ -1,6 +1,8 @@
 ﻿using SteamKit2;
 using System;
 
+// 76561197991494515
+
 namespace SteamKit2X2.Internal.SteamAPI
 {
     internal sealed class ISteamUser
