@@ -28,7 +28,7 @@ namespace SteamKit2X2.Internal
                     try
                     {
                         // Load the key from file.
-                        _appKey = File.ReadAllText("System\\Data\\app.key");
+                        _appKey = File.ReadAllText("Data\\app.key");
                     }
                     catch (Exception)
                     {

@@ -1,19 +1,23 @@
 ﻿using SteamKit2;
 using SteamKit2X2.Internal;
 
-/**
+/*
+ * https://developer.valvesoftware.com/wiki/Steam_Web_API
  * http://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v0001/
  * https://steamdb.info/
  */
 namespace SteamKit2X2
 {
-    class OldSchool
+    /// <summary>
+    /// This class is purely for demonstration purposes.
+    /// </summary>
+    sealed class OldSchool
     {
-        public OldSchool()
+        private OldSchool()
         {
         }
 
-        public void Test(long appId)
+        private void Test(long appId)
         {
             // Get the interface the method is bound to.
             using (dynamic steamUserStats = WebAPI.GetInterface("ISteamUserStats", API.AppKey))

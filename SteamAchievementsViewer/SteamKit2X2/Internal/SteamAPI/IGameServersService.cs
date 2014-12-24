@@ -1,6 +1,6 @@
 ﻿using SteamKit2;
 
-/**
+/*
  * Seems like a Valve only interface; please verify.
  *  IT IS NOT VALVE ONLY, IT ALLOWS NORMAL USERS TO CREATE A SPECIAL SERVER ACCOUNT USING THEIR WEB-API KEY.
  */
