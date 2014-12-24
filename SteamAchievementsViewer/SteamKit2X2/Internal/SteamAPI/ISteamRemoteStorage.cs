@@ -10,6 +10,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <param name="collectioncount">Number of collections being requested</param>
         /// <param name="publishedfileids">collection ids to get the details for</param>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void GetCollectionDetails(uint collectioncount, ulong[] publishedfileids)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamRemoteStorage", API.AppKey))
@@ -23,6 +24,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// </summary>
         /// <param name="itemcount">Number of items being requested</param>
         /// <param name="publishedfileids">published file id to look up</param>
+        /// <remarks>NO KEY</remarks>
         public void GetPublishedFileDetails(uint itemcount, ulong[] publishedfileids)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamRemoteStorage", API.AppKey))

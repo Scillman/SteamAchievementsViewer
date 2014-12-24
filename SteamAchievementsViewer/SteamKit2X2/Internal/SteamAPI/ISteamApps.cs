@@ -8,6 +8,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>NO KEY</remarks>
         [Obsolete("Use GetAppList2 instead.")]
         public void GetAppList()
         {
@@ -20,6 +21,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>NO KEY</remarks>
         public void GetAppList2()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamApps", API.AppKey))
@@ -32,6 +34,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="addr">IP or IP:queryport to list</param>
+        /// <remarks>NO KEY</remarks>
         public void GetServersAtAddress(string addr)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamApps", API.AppKey))
@@ -45,6 +48,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// </summary>
         /// <param name="appid">AppID of game</param>
         /// <param name="version">The installed version of the game</param>
+        /// <remarks>NO KEY</remarks>
         public void UpToDateCheck(uint appid, uint version)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamApps", API.AppKey))

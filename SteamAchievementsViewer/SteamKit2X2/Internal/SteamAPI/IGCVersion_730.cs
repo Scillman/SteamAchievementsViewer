@@ -10,6 +10,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>NO KEY</remarks>
         public void GetServerVersion()
         {
             using (dynamic data = WebAPI.GetInterface("IGCVersion_730", API.AppKey))

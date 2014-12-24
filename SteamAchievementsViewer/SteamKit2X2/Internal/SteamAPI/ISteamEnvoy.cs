@@ -8,6 +8,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void PaymentOutNotification()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamEnvoy", API.AppKey))
@@ -20,6 +21,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void PaymentOutReversalNotification()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamEnvoy", API.AppKey))

@@ -8,6 +8,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void PayPalPaymentsHubPaymentNotification()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamPayPalPaymentsHub", API.AppKey))

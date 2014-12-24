@@ -9,6 +9,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="gameid">GameID to retrieve the achievement percentages for</param>
+        /// <remarks>NO KEY</remarks>
         [Obsolete("Use GetGlobalAchievementPercentagesForApp2 instead.")]
         public void GetGlobalAchievementPercentagesForApp(ulong gameid)
         {
@@ -22,6 +23,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="gameid">GameID to retrieve the achievement percentages for</param>
+        /// <remarks>NO KEY</remarks>
         public void GetGlobalAchievementPercentagesForApp2(ulong gameid)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserStats", API.AppKey))
@@ -36,6 +38,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <param name="appid">AppID that we're getting global stats for</param>
         /// <param name="count">Number of stats get data for</param>
         /// <param name="name">Names of stat to get data for</param>
+        /// <remarks>NO KEY</remarks>
         public void GetGlobalStatsForGame(uint appid, uint count, string[] name)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserStats", API.AppKey))
@@ -52,6 +55,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <param name="name">Names of stat to get data for</param>
         /// <param name="startdate">Start date for daily totals (unix epoch timestamp)</param>
         /// <param name="enddate">End date for daily totals (unix epoch timestamp)</param>
+        /// <remarks>NO KEY</remarks>
         public void GetGlobalStatsForGame(uint appid, uint count, string[] name, uint startdate, uint enddate)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserStats", API.AppKey))
@@ -64,6 +68,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="appid">AppID that we're getting user count for</param>
+        /// <remarks>NO KEY</remarks>
         public void GetNumberOfCurrentPlayers(uint appid)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserStats", API.AppKey))

@@ -7,6 +7,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>NO KEY</remarks>
         public void GetServerInfo()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamWebAPIUtil", API.AppKey))
@@ -18,6 +19,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>NO KEY</remarks>
         public void GetSupportedAPIList()
         {
             using (dynamic data = WebAPI.GetInterface("ISteamWebAPIUtil", API.AppKey))
@@ -30,6 +32,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="key">access key</param>
+        /// <remarks>NO KEY</remarks>
         public void GetSupportedAPIList(string key)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamWebAPIUtil", API.AppKey))

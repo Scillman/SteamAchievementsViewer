@@ -11,7 +11,8 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <param name="sessionkey">Should be a 32 byte random blob of data, which is then encrypted with RSA using the Steam system's public key.  Randomness is important here for security.</param>
         /// <param name="encrypted_loginkey">Should be the users hashed loginkey, AES encrypted with the sessionkey.</param>
         /// <remarks>POST</remarks>
-        public void AuthenticateUser(ulong steamid, byte[] sessionkey, byte[] encrypted_loginkey)
+        /// <remarks>NO KEY</remarks>
+        public void AuthenticateUser(ulong steamid, /*rawbinary*/byte[] sessionkey, /*rawbinary*/byte[] encrypted_loginkey)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserAuth", API.AppKey))
             {

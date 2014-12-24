@@ -11,6 +11,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="leaderboardName">The leaderboard name to fetch data for.</param>
+        /// <remarks>NO KEY</remarks>
         public void GetBucketizedData(string leaderboardName)
         {
             using (dynamic data = WebAPI.GetInterface("IPortal2Leaderboards_620", API.AppKey))

@@ -8,6 +8,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="cellid">Client's Steam cell ID</param>
+        /// <remarks>NO KEY</remarks>
         public void GetCMList(uint cellid)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamDirectory", API.AppKey))
@@ -21,6 +22,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// </summary>
         /// <param name="cellid">Client's Steam cell ID</param>
         /// <param name="maxcount">Max number of servers to return</param>
+        /// <remarks>NO KEY</remarks>
         public void GetCMList(uint cellid, uint maxcount)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamDirectory", API.AppKey))

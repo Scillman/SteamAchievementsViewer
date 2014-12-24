@@ -12,11 +12,17 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// <param name="shasentryfile"></param>
         /// <param name="machineid"></param>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void ReportAccountRecoveryData(string loginuser_list, string install_config, string shasentryfile, string machineid)
         {
             using (dynamic data = WebAPI.GetInterface("IAccountRecoveryService", API.AppKey))
             {
-                KeyValue items = data.ReportAccountRecoveryData(loginuser_list: loginuser_list, install_config: install_config, shasentryfile: shasentryfile, machineid: machineid, l: "english");
+                KeyValue items = data.ReportAccountRecoveryData(
+                    loginuser_list: loginuser_list,
+                    install_config: install_config,
+                    shasentryfile: shasentryfile,
+                    machineid: machineid
+                );
             }
         }
 
@@ -25,11 +31,12 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// </summary>
         /// <param name="requesthandle"></param>
         /// <remarks>POST</remarks>
+        /// <remarks>NO KEY</remarks>
         public void RetrieveAccountRecoveryData(string requesthandle)
         {
             using (dynamic data = WebAPI.GetInterface("IAccountRecoveryService", API.AppKey))
             {
-                KeyValue items = data.RetrieveAccountRecoveryData(requesthandle: requesthandle, l: "english");
+                KeyValue items = data.RetrieveAccountRecoveryData(requesthandle: requesthandle);
             }
         }
     }

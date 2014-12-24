@@ -8,6 +8,7 @@ namespace SteamKit2X2.Internal.SteamAPI
         /// 
         /// </summary>
         /// <param name="access_token">OAuth2 token for which to return details</param>
+        /// <remarks>NO KEY</remarks>
         public void GetTokenDetails(string access_token)
         {
             using (dynamic data = WebAPI.GetInterface("ISteamUserOAuth", API.AppKey))
