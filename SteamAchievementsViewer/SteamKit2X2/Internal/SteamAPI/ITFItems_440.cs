@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Team Fortress 2
     /// </summary>
-    internal class ITFItems_440
+    internal sealed class ITFItems_440
     {
         /// <summary>
         /// 

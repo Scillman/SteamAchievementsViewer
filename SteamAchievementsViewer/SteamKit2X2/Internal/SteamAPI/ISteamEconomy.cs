@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamEconomy
+    internal sealed class ISteamEconomy
     {
         /// <summary>
         /// 

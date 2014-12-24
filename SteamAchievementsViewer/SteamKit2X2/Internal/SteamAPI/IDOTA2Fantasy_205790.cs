@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Dota 2 Test
     /// </summary>
-    internal class IDOTA2Fantasy_205790 : IDOTA2Fantasy
+    internal sealed class IDOTA2Fantasy_205790 : IDOTA2Fantasy
     {
         /// <summary>
         /// 

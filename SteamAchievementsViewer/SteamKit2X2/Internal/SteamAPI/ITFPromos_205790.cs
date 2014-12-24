@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Dota 2 Test
     /// </summary>
-    internal class ITFPromos_205790 : ITFPromos
+    internal sealed class ITFPromos_205790 : ITFPromos
     {
         /// <summary>
         /// 

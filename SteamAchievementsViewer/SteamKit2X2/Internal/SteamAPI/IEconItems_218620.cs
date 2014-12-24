@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// PAYDAY 2
     /// </summary>
-    internal class IEconItems_218620 : IEconItems
+    internal sealed class IEconItems_218620 : IEconItems
     {
         /// <summary>
         /// 

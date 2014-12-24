@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Dota 2 Test
     /// </summary>
-    internal class IDOTA2Match_205790
+    internal sealed class IDOTA2Match_205790
     {
         /// <summary>
         /// 

@@ -6,7 +6,7 @@
  */
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class IGameServersService
+    internal sealed class IGameServersService
     {
         /// <summary>
         /// Gets a list of game server accounts with their logon tokens

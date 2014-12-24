@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Defense Grid 2 (DG2: Defense Grid 2)
     /// </summary>
-    internal class IEconItems_221540 : IEconItems
+    internal sealed class IEconItems_221540 : IEconItems
     {
         /// <summary>
         /// 

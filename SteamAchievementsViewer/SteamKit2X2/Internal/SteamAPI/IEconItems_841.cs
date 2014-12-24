@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Portal 2 Beta
     /// </summary>
-    internal class IEconItems_841 : IEconItems
+    internal sealed class IEconItems_841 : IEconItems
     {
         /// <summary>
         /// 

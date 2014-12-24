@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Portal 2
     /// </summary>
-    internal class ITFPromos_620 : ITFPromos
+    internal sealed class ITFPromos_620 : ITFPromos
     {
         /// <summary>
         /// 

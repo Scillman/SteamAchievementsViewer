@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Dota 2
     /// </summary>
-    internal class IEconDOTA2_570 : IEconDOTA2
+    internal sealed class IEconDOTA2_570 : IEconDOTA2
     {
         /// <summary>
         /// 

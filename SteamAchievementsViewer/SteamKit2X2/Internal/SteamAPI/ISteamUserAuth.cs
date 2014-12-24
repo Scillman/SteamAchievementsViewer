@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamUserAuth
+    internal sealed class ISteamUserAuth
     {
         /// <summary>
         /// 

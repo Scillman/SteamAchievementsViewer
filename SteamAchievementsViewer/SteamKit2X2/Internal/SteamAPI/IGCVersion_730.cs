@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Counter-Strike: Global Offensive
     /// </summary>
-    internal class IGCVersion_730 : IGCVersion
+    internal sealed class IGCVersion_730 : IGCVersion
     {
         /// <summary>
         /// 

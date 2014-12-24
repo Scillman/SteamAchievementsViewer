@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Dota 2 Test
     /// </summary>
-    internal class IGCVersion_205790 : IGCVersion
+    internal sealed class IGCVersion_205790 : IGCVersion
     {
         /// <summary>
         /// 

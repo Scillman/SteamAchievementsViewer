@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamRemoteStorage
+    internal sealed class ISteamRemoteStorage
     {
         /// <summary>
         /// 

@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamEnvoy
+    internal sealed class ISteamEnvoy
     {
         /// <summary>
         /// 

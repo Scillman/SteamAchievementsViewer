@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Team Fortress 2
     /// </summary>
-    internal class IGCVersion_440 : IGCVersion
+    internal sealed class IGCVersion_440 : IGCVersion
     {
         /// <summary>
         /// 

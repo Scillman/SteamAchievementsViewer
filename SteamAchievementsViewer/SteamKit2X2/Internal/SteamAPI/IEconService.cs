@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class IEconService
+    internal sealed class IEconService
     {
         /// <summary>
         /// Get a list of sent or received trade offers

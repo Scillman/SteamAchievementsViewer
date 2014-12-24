@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// BattleBlock Theater
     /// </summary>
-    internal class IEconItems_238460 : IEconItems
+    internal sealed class IEconItems_238460 : IEconItems
     {
         /// <summary>
         /// 

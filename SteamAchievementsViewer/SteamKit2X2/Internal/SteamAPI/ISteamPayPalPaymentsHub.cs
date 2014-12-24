@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamPayPalPaymentsHub
+    internal sealed class ISteamPayPalPaymentsHub
     {
         /// <summary>
         /// 

@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamDirectory
+    internal sealed class ISteamDirectory
     {
         /// <summary>
         /// 

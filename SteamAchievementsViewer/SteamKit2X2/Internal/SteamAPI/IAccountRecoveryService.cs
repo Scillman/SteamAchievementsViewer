@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class IAccountRecoveryService
+    internal sealed class IAccountRecoveryService
     {
         /// <summary>
         /// Send account recovery data

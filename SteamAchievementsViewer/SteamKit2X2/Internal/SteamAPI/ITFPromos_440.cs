@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Team Fortress 2
     /// </summary>
-    internal class ITFPromos_440 : ITFPromos
+    internal sealed class ITFPromos_440 : ITFPromos
     {
         /// <summary>
         /// 

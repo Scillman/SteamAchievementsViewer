@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SteamKit2;
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class IPublishedFileService
+    internal sealed class IPublishedFileService
     {
         /// <summary>
         /// Performs a search query for published files

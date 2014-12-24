@@ -3,7 +3,7 @@ using System;
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamUser
+    internal sealed class ISteamUser
     {
         /// <summary>
         /// 

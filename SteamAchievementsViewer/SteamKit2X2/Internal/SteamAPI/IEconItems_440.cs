@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Team Fortress 2
     /// </summary>
-    internal class IEconItems_440 : IEconItems
+    internal sealed class IEconItems_440 : IEconItems
     {
         /// <summary>
         /// 

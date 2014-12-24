@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Counter-Strike: Global Offensive
     /// </summary>
-    internal class IEconItems_730 : IEconItems
+    internal sealed class IEconItems_730 : IEconItems
     {
         /// <summary>
         /// 

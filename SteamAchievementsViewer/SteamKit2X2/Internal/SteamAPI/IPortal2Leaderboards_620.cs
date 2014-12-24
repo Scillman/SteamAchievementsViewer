@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Portal 2
     /// </summary>
-    internal class IPortal2Leaderboards_620 : IPortal2Leaderboards
+    internal sealed class IPortal2Leaderboards_620 : IPortal2Leaderboards
     {
         /// <summary>
         /// 

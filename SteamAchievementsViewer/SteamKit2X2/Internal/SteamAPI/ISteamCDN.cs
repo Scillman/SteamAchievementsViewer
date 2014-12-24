@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class ISteamCDN
+    internal sealed class ISteamCDN
     {
         /// <summary>
         /// 

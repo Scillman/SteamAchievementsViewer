@@ -2,7 +2,7 @@
 
 namespace SteamKit2X2.Internal.SteamAPI
 {
-    internal class IPlayerService
+    internal sealed class IPlayerService
     {
         /// <summary>
         /// Gets information about a player's recently played games

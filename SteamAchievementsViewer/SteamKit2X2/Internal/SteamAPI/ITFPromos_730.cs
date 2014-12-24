@@ -5,7 +5,7 @@ namespace SteamKit2X2.Internal.SteamAPI
     /// <summary>
     /// Counter-Strike: Global Offensive
     /// </summary>
-    internal class ITFPromos_730 : ITFPromos
+    internal sealed class ITFPromos_730 : ITFPromos
     {
         /// <summary>
         /// 
